@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jungle Tiers | Elite Management</title>
+    <title>Jungle Tiers | Admin Console</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -17,233 +17,239 @@
             --discord-blurple: #5865F2;
             --text-main: #1e293b;
             --text-dim: #64748b;
-            --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-gradient); background-attachment: fixed; min-height: 100vh; color: var(--text-main); }
-        h1, h2, h3, .logo, .btn { font-family: 'Fredoka', sans-serif; }
+        body { background: var(--bg-gradient); background-attachment: fixed; color: var(--text-main); min-height: 100vh; }
+        h1, h2, h3, .logo, .btn, .rank-text { font-family: 'Fredoka', sans-serif; }
 
-        /* Navigation */
+        /* Navigation - Back on top */
         nav {
-            position: sticky; top: 0; width: 100%; height: 80px;
-            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px);
+            position: fixed; top: 0; width: 100%; height: 80px;
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(12px);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 8%; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.4);
+            padding: 0 5%; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.5);
         }
-        .logo { font-size: 1.8rem; font-weight: 700; color: var(--white); }
+        .logo { font-size: 1.8rem; font-weight: 700; color: white; }
         .logo span { color: var(--deep-aqua); }
+        .nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: white; font-weight: 700; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { opacity: 0.8; }
 
         /* Hero */
-        #hero { text-align: center; padding: 60px 20px 20px; color: white; }
-        .hero-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
-        .btn { padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.3s; border: none; cursor: pointer;}
-        .btn-yt { background: white; color: var(--yt-red); }
-        .btn-dc { background: var(--discord-blurple); color: white; }
-
-        /* Admin Panel */
-        .container { max-width: 1000px; margin: 20px auto; padding: 20px; }
-        #admin-panel { display: none; background: var(--card-bg); border-radius: 24px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin-bottom: 40px; }
-        
-        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
-        .admin-box { background: #f8fafc; padding: 20px; border-radius: 15px; border: 1px solid #e2e8f0; }
-        
-        .upload-preview { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-        .preview-item { position: relative; width: 60px; height: 60px; }
-        .preview-item img { width: 100%; height: 100%; object-fit: contain; background: white; border-radius: 8px; border: 1px solid #ddd; }
-        .remove-btn { position: absolute; -top: 5px; -right: 5px; background: red; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
-
-        input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 8px; border: 1px solid #cbd5e1; }
-
-        /* Public Leaderboard Card */
-        .player-card {
-            background: var(--card-bg); margin-bottom: 15px; border-radius: 20px;
-            display: flex; align-items: center; padding: 20px 30px;
-            border: 1px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        #hero {
+            height: 50vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; padding: 0 10%; margin-top: 80px;
         }
-        .rank-img { width: 50px; height: 50px; object-fit: contain; margin-right: 20px; }
-        .player-info { flex: 1; }
-        .player-name { font-size: 1.4rem; font-weight: 700; color: var(--text-main); line-height: 1.2; }
-        .player-rank-text { font-size: 0.85rem; font-weight: 700; color: var(--deep-aqua); text-transform: uppercase; }
-        .gm-icons-row { display: flex; gap: 8px; margin-top: 5px; }
-        .gm-small-icon { width: 22px; height: 22px; object-fit: contain; }
+        #hero h1 { font-size: 4rem; color: white; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero-buttons { display: flex; gap: 15px; }
 
-        #loginModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); z-index: 2000; align-items: center; justify-content: center; }
+        .btn { padding: 12px 24px; border-radius: 50px; cursor: pointer; border: none; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .btn-yt { background: white; color: var(--yt-red); }
+        .btn-discord { background: var(--discord-blurple); color: white; }
+
+        /* Main Content */
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+        /* Professional Player Card */
+        .player-card {
+            background: var(--card-bg); margin-bottom: 15px; border-radius: 24px;
+            display: flex; align-items: center; padding: 20px 30px;
+            border: 1px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s ease;
+        }
+        .player-card:hover { transform: translateY(-3px); }
+        
+        .rank-icon-img { width: 55px; height: 55px; object-fit: contain; margin-right: 20px; }
+        .player-content { flex: 1; }
+        .rank-label { font-size: 0.8rem; font-weight: 700; color: var(--deep-aqua); text-transform: uppercase; letter-spacing: 1px; }
+        .player-name { font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-top: -2px; }
+        .gm-row { display: flex; gap: 8px; margin-top: 6px; }
+        .gm-mini-icon { width: 24px; height: 24px; object-fit: contain; opacity: 0.9; }
+
+        /* Admin Panel Section */
+        #admin-panel {
+            display: none; background: var(--card-bg); border-radius: 28px;
+            padding: 40px; border: 2px solid white; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            animation: slideUp 0.4s ease; margin-bottom: 50px;
+        }
+        .admin-box { background: #f8fafc; padding: 20px; border-radius: 18px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .upload-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        
+        /* Asset Item with Cross */
+        .asset-item { position: relative; width: 60px; height: 60px; background: white; border-radius: 10px; border: 1px solid #ddd; padding: 5px; }
+        .asset-item img { width: 100%; height: 100%; object-fit: contain; }
+        .cross-btn { position: absolute; -top: 8px; -right: 8px; background: #ff4757; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; }
+
+        input, select { padding: 12px; border-radius: 10px; border: 1px solid #ddd; margin-top: 5px; width: 100%; }
+
+        /* Login Modal */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; }
+        .login-box { background: white; padding: 40px; border-radius: 24px; text-align: center; width: 350px; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">JUNGLE<span>TIERS</span></div>
-        <div class="nav-links">
-            <button onclick="showLogin()" style="background:white; color:var(--deep-aqua); border:none; padding:8px 20px; border-radius:50px; font-weight:700; cursor:pointer;">STAFF LOGIN</button>
-        </div>
+        <ul class="nav-links">
+            <li><a onclick="location.reload()">HOME</a></li>
+            <li><a href="#ranking">RANKING</a></li>
+            <li><a onclick="showLogin()" style="color: var(--deep-aqua); background: white; padding: 10px 22px; border-radius: 50px;">ADMIN</a></li>
+        </ul>
     </nav>
 
     <header id="hero">
         <h1>Master the Jungle.</h1>
         <div class="hero-buttons">
             <a href="https://www.youtube.com/channel/UC0vjAnsrzi7A_0HuF0JLEBg" target="_blank" class="btn btn-yt"><i class="fab fa-youtube"></i> YouTube</a>
-            <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn btn-dc"><i class="fab fa-discord"></i> Discord</a>
+            <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn btn-discord"><i class="fab fa-discord"></i> Discord</a>
         </div>
     </header>
 
     <main class="container">
         <section id="admin-panel">
-            <h2 style="margin-bottom:20px; color:var(--deep-aqua)">Tier Management Console</h2>
+            <h2 style="margin-bottom:25px; color:var(--deep-aqua)">Asset & Player Management</h2>
             
-            <div class="admin-grid">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                 <div class="admin-box">
-                    <h3>1. Upload Rank Icons</h3>
-                    <input type="text" id="rankNameInput" placeholder="Rank Name (e.g. HT1)">
-                    <input type="file" id="rankFileInput" accept="image/*" onchange="uploadAsset('rank')">
-                    <div class="upload-preview" id="rankGallery"></div>
+                    <h4>Upload Rank Icons</h4>
+                    <input type="text" id="rName" placeholder="Rank Name (HT1...)">
+                    <input type="file" id="rFile" accept="image/*" onchange="uploadFile('rank')" style="font-size: 0.8rem;">
+                    <div class="upload-row" id="rankTray"></div>
                 </div>
-
                 <div class="admin-box">
-                    <h3>2. Upload Gamemode Icons</h3>
-                    <input type="text" id="gmNameInput" placeholder="Mode Name (e.g. Sword)">
-                    <input type="file" id="gmFileInput" accept="image/*" onchange="uploadAsset('gm')">
-                    <div class="upload-preview" id="gmGallery"></div>
+                    <h4>Upload Mode Icons</h4>
+                    <input type="text" id="gName" placeholder="Mode Name (Mace...)">
+                    <input type="file" id="gFile" accept="image/*" onchange="uploadFile('gm')" style="font-size: 0.8rem;">
+                    <div class="upload-row" id="gmTray"></div>
                 </div>
             </div>
 
-            <div class="admin-box" style="background: white;">
-                <h3>3. Add Player to Home Page</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top:10px;">
-                    <input type="text" id="playerName" placeholder="Username">
-                    <select id="playerRankSelect"><option value="">Select Rank</option></select>
-                    <select id="playerGMSelect"><option value="">Select Gamemode</option></select>
+            <div class="admin-box" style="background:white">
+                <h4>Add Player to Ranking</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:10px;">
+                    <input type="text" id="pName" placeholder="Player Name">
+                    <select id="selRank"><option>Select Rank</option></select>
+                    <select id="selGM"><option>Select Mode</option></select>
                 </div>
-                <button onclick="addPlayer()" class="btn" style="width:100%; background:var(--deep-aqua); color:white; margin-top:15px; justify-content:center;">PUBLISH PLAYER</button>
+                <button onclick="addPlayer()" style="width:100%; padding:15px; background:var(--deep-aqua); color:white; border:none; border-radius:12px; font-weight:700; margin-top:15px; cursor:pointer;">PUBLISH TO HOME</button>
             </div>
 
-            <div id="admin-player-list" style="margin-top:20px;"></div>
+            <div id="adminPlayerList"></div>
         </section>
 
-        <div id="home-leaderboard"></div>
+        <div id="ranking">
+            <h2 style="text-align:center; color:white; margin-bottom:30px; font-weight:400; letter-spacing:2px;">OFFICIAL RANKINGS</h2>
+            <div id="playerList"></div>
+        </div>
     </main>
 
-    <div id="loginModal">
-        <div style="background:white; padding:40px; border-radius:20px; text-align:center;">
-            <h3>Admin Access</h3>
-            <input type="password" id="passInput" placeholder="Password" style="margin:20px 0;">
-            <button onclick="checkPass()" class="btn" style="background:var(--deep-aqua); color:white; width:100%; justify-content:center;">Unlock</button>
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-box">
+            <h2 style="color:var(--deep-aqua)">Staff Login</h2>
+            <input type="password" id="passInput" placeholder="Password">
+            <button class="btn" style="width:100%; background:var(--deep-aqua); color:white; justify-content:center; margin-top:15px;" onclick="checkPass()">Login</button>
         </div>
     </div>
 
     <script>
-        // Data Stores
-        let ranks = JSON.parse(localStorage.getItem('jungle_ranks')) || [];
-        let gms = JSON.parse(localStorage.getItem('jungle_gms')) || [];
-        let players = JSON.parse(localStorage.getItem('jungle_players')) || [];
+        let ranks = JSON.parse(localStorage.getItem('j_ranks')) || [];
+        let gms = JSON.parse(localStorage.getItem('j_gms')) || [];
+        let players = JSON.parse(localStorage.getItem('j_players')) || [];
 
-        // Asset Upload Logic
-        function uploadAsset(type) {
-            const nameInput = document.getElementById(type === 'rank' ? 'rankNameInput' : 'gmNameInput');
-            const fileInput = document.getElementById(type === 'rank' ? 'rankFileInput' : 'gmFileInput');
-            const file = fileInput.files[0];
+        function showLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        
+        function checkPass() {
+            if(document.getElementById('passInput').value === "krushnaxd123") {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                document.getElementById('hero').style.display = 'none';
+                renderAdminAssets();
+            } else { alert("Denied"); }
+        }
 
-            if (!nameInput.value || !file) return alert("Enter name and select file!");
+        function uploadFile(type) {
+            const name = document.getElementById(type === 'rank' ? 'rName' : 'gName').value;
+            const file = document.getElementById(type === 'rank' ? 'rFile' : 'gFile').files[0];
+            if(!name || !file) return alert("Missing Info");
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const newItem = { id: Date.now(), name: nameInput.value, img: e.target.result };
-                if (type === 'rank') ranks.push(newItem); else gms.push(newItem);
-                
-                saveData();
-                renderAssets();
-                nameInput.value = '';
-                fileInput.value = '';
+                const item = { id: Date.now(), name, img: e.target.result };
+                if(type === 'rank') ranks.push(item); else gms.push(item);
+                save(); renderAdminAssets();
             };
             reader.readAsDataURL(file);
         }
 
         function removeAsset(type, id) {
-            if (type === 'rank') ranks = ranks.filter(i => i.id !== id);
+            if(type === 'rank') ranks = ranks.filter(i => i.id !== id);
             else gms = gms.filter(i => i.id !== id);
-            saveData();
-            renderAssets();
+            save(); renderAdminAssets();
         }
 
-        function renderAssets() {
-            const rGal = document.getElementById('rankGallery');
-            const gGal = document.getElementById('gmGallery');
-            const rSel = document.getElementById('playerRankSelect');
-            const gSel = document.getElementById('playerGMSelect');
-
-            rGal.innerHTML = ranks.map(r => `<div class="preview-item"><img src="${r.img}"><button class="remove-btn" onclick="removeAsset('rank', ${r.id})">×</button></div>`).join('');
-            gGal.innerHTML = gms.map(g => `<div class="preview-item"><img src="${g.img}"><button class="remove-btn" onclick="removeAsset('gm', ${g.id})">×</button></div>`).join('');
-
-            rSel.innerHTML = '<option value="">Select Rank</option>' + ranks.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
-            gSel.innerHTML = '<option value="">Select Gamemode</option>' + gms.map(g => `<option value="${g.id}">${g.name}</option>`).join('');
-        }
-
-        // Player Logic
         function addPlayer() {
-            const name = document.getElementById('playerName').value;
-            const rId = document.getElementById('playerRankSelect').value;
-            const gId = document.getElementById('playerGMSelect').value;
+            const name = document.getElementById('pName').value;
+            const rId = document.getElementById('selRank').value;
+            const gId = document.getElementById('selGM').value;
+            if(!name || rId === "Select Rank") return;
 
-            if (!name || !rId || !gId) return alert("Fill all fields!");
+            const rank = ranks.find(r => r.id == rId);
+            const gm = gms.find(g => g.id == gId);
 
-            const rankObj = ranks.find(r => r.id == rId);
-            const gmObj = gms.find(g => g.id == gId);
-
-            players.push({ id: Date.now(), name, rank: rankObj, gm: gmObj });
-            saveData();
-            renderPlayers();
-            document.getElementById('playerName').value = '';
+            players.push({ id: Date.now(), name, rank, gm });
+            save(); renderHome();
+            document.getElementById('pName').value = "";
         }
 
         function removePlayer(id) {
             players = players.filter(p => p.id !== id);
-            saveData();
-            renderPlayers();
+            save(); renderHome();
         }
 
-        function renderPlayers() {
-            const board = document.getElementById('home-leaderboard');
-            const adminList = document.getElementById('admin-player-list');
+        function save() {
+            localStorage.setItem('j_ranks', JSON.stringify(ranks));
+            localStorage.setItem('j_gms', JSON.stringify(gms));
+            localStorage.setItem('j_players', JSON.stringify(players));
+        }
 
-            board.innerHTML = players.map(p => `
+        function renderAdminAssets() {
+            const rTray = document.getElementById('rankTray');
+            const gTray = document.getElementById('gmTray');
+            rTray.innerHTML = ranks.map(r => `<div class="asset-item"><button class="cross-btn" onclick="removeAsset('rank',${r.id})">×</button><img src="${r.img}"></div>`).join('');
+            gTray.innerHTML = gms.map(g => `<div class="asset-item"><button class="cross-btn" onclick="removeAsset('gm',${g.id})">×</button><img src="${g.img}"></div>`).join('');
+            
+            document.getElementById('selRank').innerHTML = `<option>Select Rank</option>` + ranks.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+            document.getElementById('selGM').innerHTML = `<option>Select Mode</option>` + gms.map(g => `<option value="${g.id}">${g.name}</option>`).join('');
+            
+            document.getElementById('adminPlayerList').innerHTML = players.map(p => `
+                <div style="display:flex; justify-content:space-between; background:white; padding:10px; border-radius:10px; margin-top:5px; border:1px solid #ddd">
+                    <span>${p.name} (${p.rank.name})</span>
+                    <button onclick="removePlayer(${p.id})" style="color:red; border:none; background:none; cursor:pointer; font-weight:700;">DELETE</button>
+                </div>
+            `).join('');
+        }
+
+        function renderHome() {
+            const list = document.getElementById('playerList');
+            list.innerHTML = players.map(p => `
                 <div class="player-card">
-                    <img src="${p.rank.img}" class="rank-img">
-                    <div class="player-info">
-                        <div class="player-rank-text">${p.rank.name}</div>
+                    <img src="${p.rank.img}" class="rank-icon-img">
+                    <div class="player-content">
+                        <div class="rank-label">${p.rank.name}</div>
                         <div class="player-name">${p.name}</div>
-                        <div class="gm-icons-row">
-                            <img src="${p.gm.img}" class="gm-small-icon" title="${p.gm.name}">
+                        <div class="gm-row">
+                            <img src="${p.gm.img}" class="gm-mini-icon" title="${p.gm.name}">
                         </div>
                     </div>
                 </div>
             `).join('');
-
-            adminList.innerHTML = players.map(p => `
-                <div style="display:flex; justify-content:space-between; background:white; padding:10px; border-radius:10px; margin-bottom:5px; border:1px solid #ddd">
-                    <span><b>${p.name}</b> (${p.rank.name})</span>
-                    <button onclick="removePlayer(${p.id})" style="color:red; border:none; background:none; cursor:pointer;">Delete</button>
-                </div>
-            `).join('');
         }
 
-        function saveData() {
-            localStorage.setItem('jungle_ranks', JSON.stringify(ranks));
-            localStorage.setItem('jungle_gms', JSON.stringify(gms));
-            localStorage.setItem('jungle_players', JSON.stringify(players));
-        }
-
-        function showLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-        function checkPass() {
-            if(document.getElementById('passInput').value === "krushnaxd123") {
-                document.getElementById('loginModal').style.display = 'none';
-                document.getElementById('admin-panel').style.display = 'block';
-            } else { alert("Wrong password!"); }
-        }
-
-        // Init
-        renderAssets();
-        renderPlayers();
+        renderHome();
     </script>
 </body>
 </html>
