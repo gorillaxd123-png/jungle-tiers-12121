@@ -332,7 +332,7 @@
   ];
   
   let currentTab = 'overall';
-  const GAMEMODES = ['Crystal', 'Sword', 'Mace', 'Dia Pot', 'SMP', 'Dia SMP', 'Neth Pot', 'Axe', 'UHC'];
+  const GAMEMODES = ['Crystal', 'Sword', 'Mace', 'Neth Pot', 'Axe', 'UHC'];
   const GM_NAMES = {
     'Crystal': 'Crystal PvP', 'Sword': 'Sword PvP', 'Mace': 'Mace PvP',
     'Dia Pot': 'Dia Pot PvP', 'SMP': 'SMP Kit', 'Dia SMP': 'Dia SMP',
@@ -354,7 +354,7 @@
 
   // Improved title function to use point thresholds and icons
   function getPlayerTitle(pts) {
-      if (pts >= 400) return '👑 Jungle Master';
+      if (pts >= 400) return '👑 Ultimate';
       if (pts >= 250) return '💎 Crystal Baron';
       if (pts >= 100) return '⚔️ Warlord';
       if (pts >= 50) return '🏹 Hunter';
