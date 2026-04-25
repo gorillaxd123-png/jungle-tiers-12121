@@ -16,7 +16,6 @@
             --yt-red: #ff0000;
             --discord-blurple: #5865F2;
             --text-main: #1e293b;
-            --text-dim: #64748b;
             --white: #ffffff;
             
             /* Tier Colors */
@@ -27,7 +26,6 @@
         body { background: var(--bg-gradient); background-attachment: fixed; color: var(--text-main); min-height: 100vh; }
         h1, h2, h3, .logo, .tier-tag, .btn { font-family: 'Fredoka', sans-serif; }
 
-        /* Navigation */
         nav {
             position: sticky; top: 0; width: 100%; height: 80px;
             background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px);
@@ -39,16 +37,14 @@
         .nav-links { display: flex; list-style: none; gap: 30px; }
         .nav-links a { text-decoration: none; color: var(--white); font-weight: 700; cursor: pointer; }
 
-        /* Hero Section */
         #hero {
-            height: 60vh; display: flex; flex-direction: column; justify-content: center;
+            height: 50vh; display: flex; flex-direction: column; justify-content: center;
             align-items: center; text-align: center; padding: 0 10%;
         }
         #hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); color: var(--white); margin-bottom: 20px; text-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
         .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
-        /* Buttons */
         .btn { 
             padding: 14px 28px; border-radius: 50px; cursor: pointer; border: none; 
             font-weight: 700; transition: 0.3s; text-decoration: none; display: flex; align-items: center; gap: 10px;
@@ -56,10 +52,11 @@
         }
         .btn-yt { background: var(--white); color: var(--yt-red); }
         .btn-dc { background: var(--discord-blurple); color: var(--white); }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); opacity: 0.95; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
 
-        /* Leaderboard */
         .container { max-width: 900px; margin: 0 auto 50px; padding: 0 20px; }
+        
+        /* Player List Style */
         .player-card {
             background: var(--card-bg); margin-bottom: 10px; border-radius: 16px;
             display: flex; align-items: center; padding: 15px 25px;
@@ -67,11 +64,17 @@
         }
         .tier-tag { width: 80px; text-align: center; padding: 6px 0; border-radius: 10px; font-weight: 700; color: white; margin-right: 25px; }
 
-        /* Admin Styles */
-        #admin-panel { display: none; background: var(--card-bg); padding: 30px; border-radius: 24px; border: 2px solid var(--white); margin-bottom: 40px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-        input, select { padding: 12px; border-radius: 12px; border: 1px solid #ddd; outline: none; }
+        /* Admin Panel UI */
+        #admin-panel { display: none; background: var(--card-bg); padding: 30px; border-radius: 24px; border: 2px solid var(--white); margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .admin-header { color: var(--deep-aqua); margin-bottom: 20px; font-size: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
         
+        .admin-form { display: flex; flex-direction: column; gap: 15px; background: #f8fafc; padding: 20px; border-radius: 15px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        
+        input, select { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none; font-size: 0.9rem; }
+        .btn-add-player { background: var(--deep-aqua); color: white; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-add-player:hover { background: var(--accent-aqua); }
+
         #loginModal { display: none; position: fixed; inset: 0; background: rgba(8, 145, 178, 0.4); backdrop-filter: blur(10px); z-index: 2000; align-items: center; justify-content: center; }
         .login-box { background: var(--white); padding: 40px; border-radius: 24px; text-align: center; width: 320px; }
 
@@ -104,20 +107,37 @@
 
     <div class="container">
         <section id="admin-panel">
-            <h2 style="color: var(--deep-aqua); margin-bottom: 20px;">Admin Console</h2>
-            <div class="form-grid">
-                <input type="text" id="pName" placeholder="Username">
-                <select id="pTier">
-                    <option value="ht1">HT1</option><option value="lt1">LT1</option>
-                    <option value="ht2">HT2</option><option value="lt2">LT2</option>
-                    <option value="ht3">HT3</option>
-                </select>
-                <select id="pGM">
-                    <option value="fa-sword">Sword</option><option value="fa-axe">Axe</option>
-                    <option value="fa-gem">Crystal</option>
-                </select>
+            <h2 class="admin-header">Admin Console</h2>
+            
+            <div class="admin-form">
+                <div class="form-row">
+                    <div>
+                        <label style="font-size: 0.8rem; font-weight: 700; color: var(--deep-aqua)">Player Name</label>
+                        <input type="text" id="pName" placeholder="Username..." style="width: 100%">
+                    </div>
+                    <div>
+                        <label style="font-size: 0.8rem; font-weight: 700; color: var(--deep-aqua)">Gamemode</label>
+                        <select id="pGM" style="width: 100%">
+                            <option value="fa-sword">Sword ⚔️</option>
+                            <option value="fa-axe">Axe 🪓</option>
+                            <option value="fa-gem">Crystal 💎</option>
+                            <option value="fa-fist-raised">Fist 👊</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.8rem; font-weight: 700; color: var(--deep-aqua)">Rank</label>
+                        <select id="pTier" style="width: 100%">
+                            <option value="ht1">HT1</option>
+                            <option value="lt1">LT1</option>
+                            <option value="ht2">HT2</option>
+                            <option value="lt2">LT2</option>
+                            <option value="ht3">HT3</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-add-player" onclick="addPlayer()">ADD PLAYER</button>
             </div>
-            <button onclick="addPlayer()" style="width:100%; margin-top:10px; padding:12px; background:var(--deep-aqua); color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Update Rankings</button>
+
             <div id="admin-list" style="margin-top:20px;"></div>
         </section>
 
@@ -128,7 +148,7 @@
         <div class="login-box">
             <h3 style="color: var(--deep-aqua)">Staff Login</h3>
             <input type="password" id="passInput" placeholder="Password" style="width:100%; margin:20px 0; text-align:center;">
-            <button onclick="checkPass()" style="width:100%; padding:10px; background:var(--deep-aqua); color:white; border:none; border-radius:10px; cursor:pointer;">Unlock</button>
+            <button onclick="checkPass()" style="width:100%; padding:10px; background:var(--deep-aqua); color:white; border:none; border-radius:10px; cursor:pointer; font-weight: 700;">Unlock</button>
         </div>
     </div>
 
@@ -138,6 +158,7 @@
         ];
 
         function showLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        
         function checkPass() {
             if(document.getElementById('passInput').value === "krushnaxd123") {
                 document.getElementById('loginModal').style.display = 'none';
@@ -168,17 +189,20 @@
             container.innerHTML = sorted.map(p => `
                 <div class="player-card">
                     <div class="tier-tag ${p.tier}">${p.tier.toUpperCase()}</div>
-                    <div style="flex:1; font-weight:700;">${p.name}</div>
-                    <div style="color:var(--deep-aqua)"><i class="fas ${p.gm}"></i></div>
+                    <div style="flex:1; font-weight:700; font-size:1.1rem;">${p.name}</div>
+                    <div style="color:var(--deep-aqua); font-size: 1.2rem;"><i class="fas ${p.gm}"></i></div>
                 </div>
             `).join('');
 
-            document.getElementById('admin-list').innerHTML = players.map((p, i) => `
-                <div style="display:flex; justify-content:space-between; background:white; padding:8px; border-radius:8px; margin-bottom:5px;">
-                    <span>${p.name}</span>
-                    <button onclick="removePlayer(${i})" style="color:red; border:none; background:none; cursor:pointer;">Delete</button>
-                </div>
-            `).join('');
+            document.getElementById('admin-list').innerHTML = `
+                <h3 style="font-size: 0.9rem; margin-bottom: 10px; color: var(--text-dim)">Current List (Management)</h3>
+                ${players.map((p, i) => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:white; padding:10px; border-radius:10px; margin-bottom:5px; border: 1px solid #e2e8f0">
+                        <span style="font-weight: 600">${p.name} <small style="color:var(--deep-aqua)">[${p.tier.toUpperCase()}]</small></span>
+                        <button onclick="removePlayer(${i})" style="color:var(--yt-red); border:none; background:none; cursor:pointer; font-weight:700; font-size: 0.8rem">REMOVE</button>
+                    </div>
+                `).join('')}
+            `;
         }
         render();
     </script>
