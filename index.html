@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jungle Tiers | Elite Ranking</title>
+    <title>Jungle Tiers | Aqua Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-black: #0f1113;
-            --card-bg: #1a1d20;
-            --sidebar-bg: #141619;
-            --accent-gold: #ffb400;
-            --text-main: #ffffff;
-            --text-dim: #9ca3af;
-            --border-color: #2d3135;
+            /* Aqua Palette based on your image */
+            --bg-gradient: linear-gradient(135deg, #a7f3d0 0%, #7dd3fc 100%);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --sidebar-bg: rgba(255, 255, 255, 0.7);
+            --accent-aqua: #2dd4bf;
+            --deep-aqua: #0891b2;
+            --text-main: #1e293b;
+            --text-dim: #64748b;
+            --border-color: rgba(255, 255, 255, 0.5);
             
-            /* Tier Colors */
-            --s-tier: #ff4e50;
-            --a-tier: #ffa62b;
-            --b-tier: #bedb39;
-            --c-tier: #20b2aa;
+            /* Tier Colors - Fresher tones */
+            --s-tier: #f43f5e;
+            --a-tier: #f59e0b;
         }
 
         * {
@@ -32,18 +32,25 @@
         }
 
         body {
-            background-color: var(--bg-black);
+            background: var(--bg-gradient);
+            background-attachment: fixed;
             color: var(--text-main);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* --- Modern Navbar --- */
+        h1, .logo, .tier-tag {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* --- Glassmorphism Navbar --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            height: 70px;
-            background: var(--sidebar-bg);
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -53,136 +60,106 @@
         }
 
         .logo {
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .logo i { color: var(--accent-gold); }
-        .logo span { color: var(--accent-gold); }
+        .logo span { color: var(--deep-aqua); }
 
         .nav-links { display: flex; list-style: none; }
         .nav-links li { margin-left: 30px; }
         .nav-links a {
             text-decoration: none;
-            color: var(--text-dim);
-            font-weight: 500;
+            color: white;
+            font-weight: 700;
             font-size: 0.9rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
 
-        .nav-links a:hover { color: var(--text-main); }
+        .nav-links a:hover { color: var(--deep-aqua); }
 
         /* --- Hero Section --- */
         #hero {
-            height: 60vh;
+            height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: center;
             padding: 0 10%;
-            background: radial-gradient(circle at top right, #1e2227, var(--bg-black));
-            border-bottom: 1px solid var(--border-color);
-            margin-top: 70px;
+            margin-top: 80px;
         }
 
         #hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 15px;
-            font-weight: 800;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: white;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
         }
 
-        #hero p { color: var(--text-dim); max-width: 600px; margin-bottom: 30px; }
+        #hero p { color: var(--deep-aqua); font-weight: 600; max-width: 600px; margin-bottom: 30px; }
 
         .btn {
-            padding: 12px 25px;
-            border-radius: 4px;
+            padding: 15px 35px;
+            border-radius: 50px; /* Bubbly shape */
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            transition: 0.2s;
+            transition: 0.3s;
             display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .btn-gold { background: var(--accent-gold); color: black; margin-right: 15px; }
-        .btn-gold:hover { background: #e6a200; transform: translateY(-2px); }
+        .btn-white { background: white; color: var(--deep-aqua); margin-right: 15px; }
+        .btn-white:hover { transform: scale(1.05); background: #f8fafc; }
 
         /* --- Content Layout --- */
         .main-content {
             display: grid;
             grid-template-columns: 1fr 300px;
             gap: 40px;
-            padding: 60px 10%;
+            padding: 40px 10%;
         }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            border-left: 4px solid var(--accent-gold);
-            padding-left: 15px;
-        }
-
-        /* --- Tier Card Style --- */
-        .tier-list-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
+        /* --- Card Styles --- */
         .video-card {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border-radius: 20px;
             display: flex;
-            border-radius: 8px;
             overflow: hidden;
-            transition: 0.3s;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid white;
         }
 
-        .video-card:hover { border-color: #444; }
-
-        .video-thumb {
-            width: 280px;
-            position: relative;
-        }
-
+        .video-thumb { width: 300px; background: #000; }
         .video-thumb iframe { width: 100%; height: 100%; border: none; }
 
-        .video-info {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+        .video-info { padding: 30px; flex: 1; }
 
         .tier-tag {
-            background: var(--s-tier);
+            padding: 5px 15px;
             color: white;
-            padding: 2px 8px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            border-radius: 3px;
-            width: fit-content;
-            margin-bottom: 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
         }
 
-        /* --- Sidebar --- */
         .sidebar-box {
             background: var(--sidebar-bg);
+            backdrop-filter: blur(5px);
             padding: 25px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            border: 1px solid white;
             margin-bottom: 20px;
         }
 
-        .sidebar-box h3 { font-size: 1rem; margin-bottom: 15px; color: var(--accent-gold); }
+        .sidebar-box h3 { color: var(--deep-aqua); margin-bottom: 15px; }
 
-        /* --- Responsive --- */
         @media (max-width: 992px) {
             .main-content { grid-template-columns: 1fr; }
             .video-card { flex-direction: column; }
@@ -193,62 +170,41 @@
 <body>
 
     <nav>
-        <div class="logo"><i class="fas fa-layer-group"></i> JUNGLE<span>TIERS</span></div>
+        <div class="logo">JUNGLE<span>TIERS</span></div>
         <ul class="nav-links">
             <li><a href="#">TIER LISTS</a></li>
             <li><a href="#">CHAMPIONS</a></li>
             <li><a href="#">DISCORD</a></li>
-            <li><a href="#">ABOUT</a></li>
         </ul>
     </nav>
 
     <header id="hero">
-        <p style="color: var(--accent-gold); font-weight: 700; margin-bottom: 10px;">PREMIUM META ANALYSIS</p>
-        <h1>Master the Jungle. <br>Climb the Ranks.</h1>
-        <p>The most accurate, data-driven tier lists for competitive play. Updated daily by top-tier analysts and pro players.</p>
+        <h1>Master the Jungle.</h1>
+        <p>Expertly analyzed tier lists with a fresh perspective.</p>
         <div>
-            <a href="#videos" class="btn btn-gold">View Tier Lists</a>
-            <a href="#" class="btn" style="color: white; border: 1px solid #444;">Join Community</a>
+            <a href="#videos" class="btn btn-white">View Rankings</a>
         </div>
     </header>
 
     <main class="main-content">
         <section id="videos">
-            <div class="section-header">
-                <h2>LATEST RANKINGS</h2>
-                <a href="#" style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem;">VIEW ALL <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <div id="video-container" class="tier-list-grid">
-                <p>Analyzing transmissions...</p>
+            <div id="video-container">
+                <p style="text-align:center; color: white;">Loading latest updates...</p>
             </div>
         </section>
 
         <aside>
             <div class="sidebar-box">
-                <h3>COMMUNITY STATS</h3>
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <div>
-                        <small style="color: var(--text-dim)">SUBSCRIBERS</small>
-                        <div style="font-size: 1.5rem; font-weight: 800;">50,420</div>
-                    </div>
-                    <div>
-                        <small style="color: var(--text-dim)">ACTIVE ANALYSTS</small>
-                        <div style="font-size: 1.5rem; font-weight: 800;">12</div>
-                    </div>
-                </div>
+                <h3>COMMUNITY</h3>
+                <div style="font-size: 1.5rem; font-weight: 800; color: var(--deep-aqua);">50,420</div>
+                <small>Ranked Junglers</small>
             </div>
-
             <div class="sidebar-box">
-                <h3>TOP SUPPORTERS</h3>
-                <p style="font-size: 0.8rem; color: var(--text-dim)">Join our Discord to see your name featured here and influence the next tier list.</p>
+                <h3>DAILY META</h3>
+                <p style="font-size: 0.85rem;">The aqua meta is currently favoring high-mobility invaders.</p>
             </div>
         </aside>
     </main>
-
-    <footer style="padding: 60px 10%; border-top: 1px solid var(--border-color); text-align: center; background: var(--sidebar-bg);">
-        <p style="color: var(--text-dim); font-size: 0.8rem;">&copy; 2026 JUNGLE TIERS. NOT AFFILIATED WITH RIOT GAMES.</p>
-    </footer>
 
     <script>
         const CHANNEL_ID = 'UC_x5XG1OV2P6uYZ5FHSx6_A'; 
@@ -265,8 +221,8 @@
                 if (data.items) {
                     data.items.slice(0, 4).forEach((item, index) => {
                         const videoId = item.guid.split(':').pop();
-                        const tier = index === 0 ? 'S-TIER' : 'A-TIER';
-                        const tierColor = index === 0 ? 'var(--s-tier)' : 'var(--a-tier)';
+                        const tierColor = index === 0 ? 'var(--s-tier)' : 'var(--accent-aqua)';
+                        const tierLabel = index === 0 ? 'S-TIER' : 'A-TIER';
                         
                         const card = document.createElement('div');
                         card.className = 'video-card';
@@ -275,22 +231,21 @@
                                 <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
                             </div>
                             <div class="video-info">
-                                <span class="tier-tag" style="background: ${tierColor}">${tier} UPDATE</span>
-                                <h3 style="margin-bottom:10px; font-size: 1.1rem;">${item.title}</h3>
-                                <p style="font-size:0.8rem; color: var(--text-dim); margin-bottom: 15px;">
-                                    Deep dive into the current meta shifts. Published on ${new Date(item.pubDate).toLocaleDateString()}.
+                                <span class="tier-tag" style="background: ${tierColor}">${tierLabel}</span>
+                                <h3 style="margin-bottom:10px;">${item.title}</h3>
+                                <p style="font-size:0.9rem; color: var(--text-dim); margin-bottom: 20px;">
+                                    Latest jungle pathing and itemization updates.
                                 </p>
-                                <a href="#" style="color: var(--accent-gold); font-size: 0.8rem; font-weight: 700; text-decoration: none;">READ FULL BREAKDOWN</a>
+                                <a href="#" style="color: var(--deep-aqua); font-weight: 700; text-decoration: none;">VIEW BUILD →</a>
                             </div>
                         `;
                         container.appendChild(card);
                     });
                 }
             } catch (error) {
-                document.getElementById('video-container').innerHTML = '<p>Offline.</p>';
+                document.getElementById('video-container').innerHTML = '<p>Unable to load rankings.</p>';
             }
         }
-
         fetchVideos();
     </script>
 </body>
