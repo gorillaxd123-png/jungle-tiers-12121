@@ -9,27 +9,19 @@
     
     <style>
         :root {
-            /* Aqua Palette based on your image */
             --bg-gradient: linear-gradient(135deg, #a7f3d0 0%, #7dd3fc 100%);
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.92);
             --sidebar-bg: rgba(255, 255, 255, 0.7);
             --accent-aqua: #2dd4bf;
             --deep-aqua: #0891b2;
+            --discord-blurple: #5865F2;
             --text-main: #1e293b;
             --text-dim: #64748b;
             --border-color: rgba(255, 255, 255, 0.5);
-            
-            /* Tier Colors - Fresher tones */
             --s-tier: #f43f5e;
-            --a-tier: #f59e0b;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background: var(--bg-gradient);
@@ -39,18 +31,15 @@
             min-height: 100vh;
         }
 
-        h1, .logo, .tier-tag {
-            font-family: 'Fredoka', sans-serif;
-        }
+        h1, .logo, .tier-tag, .btn { font-family: 'Fredoka', sans-serif; }
 
-        /* --- Glassmorphism Navbar --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             height: 80px;
             background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -59,31 +48,21 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
+        .logo { font-size: 1.8rem; font-weight: 700; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .logo span { color: var(--deep-aqua); }
 
-        .nav-links { display: flex; list-style: none; }
+        .nav-links { display: flex; list-style: none; align-items: center; }
         .nav-links li { margin-left: 30px; }
         .nav-links a {
             text-decoration: none;
             color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            font-weight: 600;
             transition: 0.3s;
         }
-
         .nav-links a:hover { color: var(--deep-aqua); }
 
-        /* --- Hero Section --- */
         #hero {
-            height: 50vh;
+            height: 55vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -93,72 +72,70 @@
             margin-top: 80px;
         }
 
-        #hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            color: white;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
-        }
-
-        #hero p { color: var(--deep-aqua); font-weight: 600; max-width: 600px; margin-bottom: 30px; }
+        #hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); color: white; margin-bottom: 15px; }
+        #hero p { color: var(--deep-aqua); font-weight: 600; font-size: 1.2rem; margin-bottom: 35px; }
 
         .btn {
-            padding: 15px 35px;
-            border-radius: 50px; /* Bubbly shape */
+            padding: 14px 30px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
             transition: 0.3s;
             display: inline-block;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-white { background: white; color: var(--deep-aqua); margin-right: 15px; }
-        .btn-white:hover { transform: scale(1.05); background: #f8fafc; }
+        .btn-discord { background: var(--discord-blurple); color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 
-        /* --- Content Layout --- */
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 1fr 320px;
             gap: 40px;
             padding: 40px 10%;
         }
 
-        /* --- Card Styles --- */
         .video-card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 24px;
             display: flex;
             overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
             border: 1px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .video-thumb { width: 300px; background: #000; }
+        .video-thumb { width: 320px; min-height: 180px; background: #000; }
         .video-thumb iframe { width: 100%; height: 100%; border: none; }
-
         .video-info { padding: 30px; flex: 1; }
 
         .tier-tag {
-            padding: 5px 15px;
+            padding: 4px 16px;
             color: white;
             border-radius: 50px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .sidebar-box {
             background: var(--sidebar-bg);
-            backdrop-filter: blur(5px);
-            padding: 25px;
-            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 24px;
             border: 1px solid white;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center;
         }
 
-        .sidebar-box h3 { color: var(--deep-aqua); margin-bottom: 15px; }
+        .discord-sidebar {
+            background: linear-gradient(135deg, #5865F2 0%, #4752c4 100%);
+            color: white;
+        }
 
         @media (max-width: 992px) {
             .main-content { grid-template-columns: 1fr; }
@@ -172,36 +149,41 @@
     <nav>
         <div class="logo">JUNGLE<span>TIERS</span></div>
         <ul class="nav-links">
-            <li><a href="#">TIER LISTS</a></li>
-            <li><a href="#">CHAMPIONS</a></li>
-            <li><a href="#">DISCORD</a></li>
+            <li><a href="#videos">TIER LISTS</a></li>
+            <li><a href="https://discord.gg/RusKaP27b8" target="_blank"><i class="fab fa-discord"></i> DISCORD</a></li>
         </ul>
     </nav>
 
     <header id="hero">
         <h1>Master the Jungle.</h1>
-        <p>Expertly analyzed tier lists with a fresh perspective.</p>
+        <p>The freshest meta analysis for elite climbing.</p>
         <div>
             <a href="#videos" class="btn btn-white">View Rankings</a>
+            <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn btn-discord">
+                <i class="fab fa-discord"></i> Join Discord
+            </a>
         </div>
     </header>
 
     <main class="main-content">
         <section id="videos">
             <div id="video-container">
-                <p style="text-align:center; color: white;">Loading latest updates...</p>
+                <p style="text-align:center; color: white;">Syncing with the jungle...</p>
             </div>
         </section>
 
         <aside>
-            <div class="sidebar-box">
-                <h3>COMMUNITY</h3>
-                <div style="font-size: 1.5rem; font-weight: 800; color: var(--deep-aqua);">50,420</div>
-                <small>Ranked Junglers</small>
+            <div class="sidebar-box discord-sidebar">
+                <i class="fab fa-discord" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
+                <h3 style="color: white; margin-bottom: 10px;">JOIN THE PACK</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 20px; opacity: 0.9;">Get real-time meta alerts and chat with top-tier analysts.</p>
+                <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn btn-white" style="width: 100%; margin: 0;">ENTER DISCORD</a>
             </div>
+
             <div class="sidebar-box">
-                <h3>DAILY META</h3>
-                <p style="font-size: 0.85rem;">The aqua meta is currently favoring high-mobility invaders.</p>
+                <h3 style="color: var(--deep-aqua);">LIVE STATS</h3>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--text-main);">50,420</div>
+                <small style="color: var(--text-dim); text-transform: uppercase; font-weight: 700;">Subscribers</small>
             </div>
         </aside>
     </main>
@@ -222,7 +204,7 @@
                     data.items.slice(0, 4).forEach((item, index) => {
                         const videoId = item.guid.split(':').pop();
                         const tierColor = index === 0 ? 'var(--s-tier)' : 'var(--accent-aqua)';
-                        const tierLabel = index === 0 ? 'S-TIER' : 'A-TIER';
+                        const tierLabel = index === 0 ? 'S-TIER UPDATE' : 'A-TIER UPDATE';
                         
                         const card = document.createElement('div');
                         card.className = 'video-card';
@@ -232,18 +214,18 @@
                             </div>
                             <div class="video-info">
                                 <span class="tier-tag" style="background: ${tierColor}">${tierLabel}</span>
-                                <h3 style="margin-bottom:10px;">${item.title}</h3>
-                                <p style="font-size:0.9rem; color: var(--text-dim); margin-bottom: 20px;">
-                                    Latest jungle pathing and itemization updates.
+                                <h3 style="margin-bottom:12px; font-size: 1.3rem;">${item.title}</h3>
+                                <p style="font-size:0.95rem; color: var(--text-dim); margin-bottom: 20px;">
+                                    Deep dive into current meta shifts and champion pathing.
                                 </p>
-                                <a href="#" style="color: var(--deep-aqua); font-weight: 700; text-decoration: none;">VIEW BUILD →</a>
+                                <a href="https://discord.gg/RusKaP27b8" target="_blank" style="color: var(--deep-aqua); font-weight: 700; text-decoration: none; font-size: 0.9rem;">DISCUSS ON DISCORD →</a>
                             </div>
                         `;
                         container.appendChild(card);
                     });
                 }
             } catch (error) {
-                document.getElementById('video-container').innerHTML = '<p>Unable to load rankings.</p>';
+                document.getElementById('video-container').innerHTML = '<p style="color:white">Channel is currently hidden.</p>';
             }
         }
         fetchVideos();
