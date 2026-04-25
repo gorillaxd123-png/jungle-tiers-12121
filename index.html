@@ -11,7 +11,6 @@
         :root {
             --bg-gradient: linear-gradient(135deg, #a7f3d0 0%, #7dd3fc 100%);
             --card-bg: rgba(255, 255, 255, 0.92);
-            --sidebar-bg: rgba(255, 255, 255, 0.7);
             --accent-aqua: #2dd4bf;
             --deep-aqua: #0891b2;
             --discord-blurple: #5865F2;
@@ -62,7 +61,7 @@
         .nav-links a:hover { color: var(--deep-aqua); }
 
         #hero {
-            height: 55vh;
+            height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -91,11 +90,20 @@
         .btn-discord { background: var(--discord-blurple); color: white; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 
+        /* Simplified Layout without Sidebar */
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 40px;
-            padding: 40px 10%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 5%;
+        }
+
+        .section-title {
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .video-card {
@@ -108,7 +116,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .video-thumb { width: 320px; min-height: 180px; background: #000; }
+        .video-thumb { width: 350px; min-height: 200px; background: #000; }
         .video-thumb iframe { width: 100%; height: 100%; border: none; }
         .video-info { padding: 30px; flex: 1; }
 
@@ -122,23 +130,7 @@
             margin-bottom: 12px;
         }
 
-        .sidebar-box {
-            background: var(--sidebar-bg);
-            backdrop-filter: blur(8px);
-            padding: 30px;
-            border-radius: 24px;
-            border: 1px solid white;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .discord-sidebar {
-            background: linear-gradient(135deg, #5865F2 0%, #4752c4 100%);
-            color: white;
-        }
-
-        @media (max-width: 992px) {
-            .main-content { grid-template-columns: 1fr; }
+        @media (max-width: 850px) {
             .video-card { flex-direction: column; }
             .video-thumb { width: 100%; aspect-ratio: 16/9; }
         }
@@ -149,8 +141,8 @@
     <nav>
         <div class="logo">JUNGLE<span>TIERS</span></div>
         <ul class="nav-links">
-            <li><a href="#videos">TIER LISTS</a></li>
-            <li><a href="https://discord.gg/RusKaP27b8" target="_blank"><i class="fab fa-discord"></i> DISCORD</a></li>
+            <li><a href="#videos">RANKINGS</a></li>
+            <li><a href="https://discord.gg/RusKaP27b8" target="_blank"><i class="fab fa-discord"></i> COMMUNITY</a></li>
         </ul>
     </nav>
 
@@ -166,26 +158,12 @@
     </header>
 
     <main class="main-content">
+        <h2 class="section-title">Latest Updates</h2>
         <section id="videos">
             <div id="video-container">
                 <p style="text-align:center; color: white;">Syncing with the jungle...</p>
             </div>
         </section>
-
-        <aside>
-            <div class="sidebar-box discord-sidebar">
-                <i class="fab fa-discord" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
-                <h3 style="color: white; margin-bottom: 10px;">JOIN THE PACK</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 20px; opacity: 0.9;">Get real-time meta alerts and chat with top-tier analysts.</p>
-                <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn btn-white" style="width: 100%; margin: 0;">ENTER DISCORD</a>
-            </div>
-
-            <div class="sidebar-box">
-                <h3 style="color: var(--deep-aqua);">LIVE STATS</h3>
-                <div style="font-size: 2rem; font-weight: 800; color: var(--text-main);">50,420</div>
-                <small style="color: var(--text-dim); text-transform: uppercase; font-weight: 700;">Subscribers</small>
-            </div>
-        </aside>
     </main>
 
     <script>
@@ -201,7 +179,7 @@
                 container.innerHTML = ''; 
 
                 if (data.items) {
-                    data.items.slice(0, 4).forEach((item, index) => {
+                    data.items.slice(0, 5).forEach((item, index) => {
                         const videoId = item.guid.split(':').pop();
                         const tierColor = index === 0 ? 'var(--s-tier)' : 'var(--accent-aqua)';
                         const tierLabel = index === 0 ? 'S-TIER UPDATE' : 'A-TIER UPDATE';
@@ -218,14 +196,14 @@
                                 <p style="font-size:0.95rem; color: var(--text-dim); margin-bottom: 20px;">
                                     Deep dive into current meta shifts and champion pathing.
                                 </p>
-                                <a href="https://discord.gg/RusKaP27b8" target="_blank" style="color: var(--deep-aqua); font-weight: 700; text-decoration: none; font-size: 0.9rem;">DISCUSS ON DISCORD →</a>
+                                <a href="https://discord.gg/RusKaP27b8" target="_blank" style="color: var(--deep-aqua); font-weight: 700; text-decoration: none; font-size: 0.9rem;">JOIN THE DISCUSSION →</a>
                             </div>
                         `;
                         container.appendChild(card);
                     });
                 }
             } catch (error) {
-                document.getElementById('video-container').innerHTML = '<p style="color:white">Channel is currently hidden.</p>';
+                document.getElementById('video-container').innerHTML = '<p style="color:white; text-align:center;">Updates currently loading...</p>';
             }
         }
         fetchVideos();
