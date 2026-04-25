@@ -30,90 +30,52 @@
             min-height: 100vh;
         }
 
-        h1, .logo, .tier-tag, .btn { font-family: 'Fredoka', sans-serif; }
+        h1, h2, .logo, .tier-tag, .btn { font-family: 'Fredoka', sans-serif; }
 
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            height: 80px;
+            top: 0; width: 100%; height: 80px;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(12px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 1000;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .logo { font-size: 1.8rem; font-weight: 700; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.8rem; font-weight: 700; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer; }
         .logo span { color: var(--deep-aqua); }
 
         .nav-links { display: flex; list-style: none; align-items: center; }
         .nav-links li { margin-left: 30px; }
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+        .nav-links a { text-decoration: none; color: white; font-weight: 600; transition: 0.3s; cursor: pointer;}
         .nav-links a:hover { color: var(--deep-aqua); }
 
         #hero {
-            height: 50vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 10%;
-            margin-top: 80px;
+            height: 45vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 0 10%; margin-top: 80px;
         }
 
         #hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); color: white; margin-bottom: 15px; }
         #hero p { color: var(--deep-aqua); font-weight: 600; font-size: 1.2rem; margin-bottom: 35px; }
 
         .btn {
-            padding: 14px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            padding: 14px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; transition: 0.3s;
+            display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-transform: uppercase; letter-spacing: 0.5px; border: none; cursor: pointer;
         }
 
         .btn-white { background: white; color: var(--deep-aqua); margin-right: 15px; }
         .btn-discord { background: var(--discord-blurple); color: white; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 
-        /* Simplified Layout without Sidebar */
-        .main-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 5%;
-        }
-
-        .section-title {
-            color: white;
-            font-family: 'Fredoka', sans-serif;
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 2rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        .main-content { max-width: 1000px; margin: 0 auto; padding: 40px 5%; }
 
         .video-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            display: flex;
-            overflow: hidden;
-            margin-bottom: 30px;
-            border: 1px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: var(--card-bg); border-radius: 24px;
+            display: flex; overflow: hidden; margin-bottom: 30px;
+            border: 1px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .video-thumb { width: 350px; min-height: 200px; background: #000; }
@@ -121,14 +83,34 @@
         .video-info { padding: 30px; flex: 1; }
 
         .tier-tag {
-            padding: 4px 16px;
-            color: white;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 12px;
+            padding: 4px 16px; color: white; border-radius: 50px;
+            font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 12px;
         }
+
+        /* --- TIER PANEL STYLES --- */
+        #tier-panel {
+            display: none; background: var(--card-bg);
+            border-radius: 24px; padding: 40px; border: 2px solid var(--accent-aqua);
+            margin-bottom: 40px; animation: fadeIn 0.5s ease;
+        }
+
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+            z-index: 2000; justify-content: center; align-items: center;
+        }
+
+        .login-box {
+            background: white; padding: 40px; border-radius: 24px;
+            text-align: center; width: 90%; max-width: 400px;
+        }
+
+        .login-box input {
+            width: 100%; padding: 12px; margin: 20px 0;
+            border-radius: 12px; border: 1px solid #ddd; text-align: center;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 850px) {
             .video-card { flex-direction: column; }
@@ -139,26 +121,50 @@
 <body>
 
     <nav>
-        <div class="logo">JUNGLE<span>TIERS</span></div>
+        <div class="logo" onclick="window.scrollTo(0,0)">JUNGLE<span>TIERS</span></div>
         <ul class="nav-links">
             <li><a href="#videos">RANKINGS</a></li>
+            <li><a onclick="showLogin()">TIER PANEL</a></li>
             <li><a href="https://discord.gg/RusKaP27b8" target="_blank"><i class="fab fa-discord"></i> COMMUNITY</a></li>
         </ul>
     </nav>
 
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-box">
+            <h2 style="color: var(--deep-aqua)">Access Restricted</h2>
+            <p>Please enter password to open Tier Panel</p>
+            <input type="password" id="passInput" placeholder="Password...">
+            <button class="btn btn-discord" style="width:100%" onclick="checkPass()">Unlock Panel</button>
+            <p id="errorMsg" style="color:red; font-size:0.8rem; margin-top:10px; display:none;">Incorrect Password!</p>
+        </div>
+    </div>
+
     <header id="hero">
         <h1>Master the Jungle.</h1>
-        <p>The freshest meta analysis for elite climbing.</p>
+        <p>Expert meta analysis for elite climbing.</p>
         <div>
             <a href="#videos" class="btn btn-white">View Rankings</a>
-            <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn btn-discord">
-                <i class="fab fa-discord"></i> Join Discord
-            </a>
+            <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn btn-discord"><i class="fab fa-discord"></i> Discord</a>
         </div>
     </header>
 
     <main class="main-content">
-        <h2 class="section-title">Latest Updates</h2>
+        <section id="tier-panel">
+            <h2 style="color: var(--deep-aqua); margin-bottom: 20px;">🛡️ Tier Panel Management</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div style="padding: 20px; background: white; border-radius: 15px; border: 1px solid #eee;">
+                    <h4>Current Meta</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-dim)">Adjust active tier lists here.</p>
+                </div>
+                <div style="padding: 20px; background: white; border-radius: 15px; border: 1px solid #eee;">
+                    <h4>Site Settings</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-dim)">Update branding and links.</p>
+                </div>
+            </div>
+            <button class="btn btn-white" style="margin-top:20px; font-size: 0.7rem;" onclick="location.reload()">Lock & Close</button>
+        </section>
+
+        <h2 style="color: white; margin-bottom: 30px; text-align: center;">Latest Updates</h2>
         <section id="videos">
             <div id="video-container">
                 <p style="text-align:center; color: white;">Syncing with the jungle...</p>
@@ -170,6 +176,29 @@
         const CHANNEL_ID = 'UC_x5XG1OV2P6uYZ5FHSx6_A'; 
         const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
         const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
+
+        function showLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('passInput').focus();
+        }
+
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            if (pass === "krushnaxd123") {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('tier-panel').style.display = 'block';
+                document.getElementById('tier-panel').scrollIntoView({behavior: 'smooth'});
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        // Close modal on click outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('loginModal')) {
+                document.getElementById('loginModal').style.display = 'none';
+            }
+        }
 
         async function fetchVideos() {
             try {
@@ -187,16 +216,12 @@
                         const card = document.createElement('div');
                         card.className = 'video-card';
                         card.innerHTML = `
-                            <div class="video-thumb">
-                                <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
-                            </div>
+                            <div class="video-thumb"><iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>
                             <div class="video-info">
                                 <span class="tier-tag" style="background: ${tierColor}">${tierLabel}</span>
-                                <h3 style="margin-bottom:12px; font-size: 1.3rem;">${item.title}</h3>
-                                <p style="font-size:0.95rem; color: var(--text-dim); margin-bottom: 20px;">
-                                    Deep dive into current meta shifts and champion pathing.
-                                </p>
-                                <a href="https://discord.gg/RusKaP27b8" target="_blank" style="color: var(--deep-aqua); font-weight: 700; text-decoration: none; font-size: 0.9rem;">JOIN THE DISCUSSION →</a>
+                                <h3 style="margin-bottom:12px;">${item.title}</h3>
+                                <p style="font-size:0.95rem; color: var(--text-dim); margin-bottom: 20px;">Analyzed meta shifts and pathing.</p>
+                                <a href="https://discord.gg/RusKaP27b8" target="_blank" style="color: var(--deep-aqua); font-weight: 700; text-decoration: none;">DISCUSS →</a>
                             </div>
                         `;
                         container.appendChild(card);
