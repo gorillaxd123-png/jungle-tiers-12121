@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jungle Tiers | Premium Rankings</title>
+    <title>Jungle Tiers | Elite Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     
@@ -19,6 +19,7 @@
             --border-color: rgba(255, 255, 255, 0.5);
             --s-tier: #f43f5e;
             --ban-red: #ef4444;
+            --unban-green: #22c55e;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -34,52 +35,47 @@
         }
         .logo { font-size: 1.8rem; font-weight: 700; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .logo span { color: var(--deep-aqua); }
-        .nav-links { display: flex; list-style: none; align-items: center; gap: 25px; }
-        .nav-links a { text-decoration: none; color: white; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .nav-links { display: flex; list-style: none; align-items: center; gap: 30px; }
+        .nav-links a { text-decoration: none; color: white; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 0.9rem; letter-spacing: 0.5px; }
         .nav-links a:hover { color: var(--deep-aqua); }
+
+        /* Main Content Area */
+        .main-content { max-width: 1100px; margin: 100px auto 40px; padding: 0 20px; }
+
+        /* Admin Panel */
+        #tier-panel {
+            display: none; background: var(--card-bg); border-radius: 28px;
+            padding: 40px; border: 2px solid white; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .player-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .player-table th { text-align: left; padding: 12px; color: var(--text-dim); border-bottom: 2px solid #f1f5f9; }
+        .player-table td { padding: 15px; border-bottom: 1px solid #f1f5f9; }
+
+        /* Buttons */
+        .btn { padding: 12px 25px; border-radius: 50px; cursor: pointer; border: none; font-weight: 700; transition: 0.3s; }
+        .btn-sm { padding: 6px 14px; font-size: 0.75rem; margin: 2px; }
+        .btn-white { background: white; border: 1px solid #e2e8f0; color: var(--deep-aqua); }
+        .btn-ban { background: #fee2e2; color: var(--ban-red); }
+        .btn-unban { background: #dcfce7; color: var(--unban-green); }
 
         /* Hero */
         #hero {
-            height: 50vh; display: flex; flex-direction: column; justify-content: center;
+            height: 40vh; display: flex; flex-direction: column; justify-content: center;
             align-items: center; text-align: center; padding: 0 10%; margin-top: 80px;
         }
-        #hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); color: white; margin-bottom: 15px; }
-        #hero p { color: var(--deep-aqua); font-weight: 600; margin-bottom: 30px; }
+        #hero h1 { font-size: 3.5rem; color: white; margin-bottom: 10px; }
 
-        /* Main Layout */
-        .main-content { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-
-        /* Admin Panel Styling */
-        #tier-panel {
-            display: none; background: var(--card-bg); border-radius: 28px;
-            padding: 40px; margin-bottom: 50px; border: 2px solid white;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); animation: slideUp 0.4s ease-out;
-        }
-        .player-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .player-table th { text-align: left; padding: 12px; color: var(--text-dim); font-size: 0.8rem; border-bottom: 2px solid #f1f5f9; }
-        .player-table td { padding: 15px; border-bottom: 1px solid #f1f5f9; }
-
-        /* YouTube Cards */
+        /* Video Section */
         .video-card {
             background: var(--card-bg); border-radius: 24px; display: flex;
             overflow: hidden; margin-bottom: 30px; border: 1px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
         .video-thumb { width: 320px; min-height: 180px; background: #000; }
         .video-thumb iframe { width: 100%; height: 100%; border: none; }
-        .video-info { padding: 25px; flex: 1; }
 
-        /* UI Elements */
-        .btn { 
-            padding: 12px 25px; border-radius: 50px; cursor: pointer; border: none; 
-            font-weight: 700; transition: 0.3s; text-decoration: none; display: inline-block;
-        }
-        .btn-white { background: white; color: var(--deep-aqua); }
-        .btn-discord { background: var(--discord-blurple); color: white; }
-        .btn-sm { padding: 6px 12px; font-size: 0.7rem; margin: 2px; }
-        .tier-tag, .rank-badge { padding: 4px 15px; color: white; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
-
-        /* Modals */
+        /* Modal */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 2000;
@@ -90,10 +86,7 @@
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 850px) {
-            .video-card { flex-direction: column; }
-            .video-thumb { width: 100%; aspect-ratio: 16/9; }
-        }
+        @media (max-width: 850px) { .video-card { flex-direction: column; } .video-thumb { width: 100%; aspect-ratio: 16/9; } .nav-links { display: none; } }
     </style>
 </head>
 <body>
@@ -101,42 +94,40 @@
     <nav>
         <div class="logo">JUNGLE<span>TIERS</span></div>
         <ul class="nav-links">
-            <li><a onclick="showLogin()">ADMIN PANEL</a></li>
-            <li><a href="https://discord.gg/RusKaP27b8" target="_blank"><i class="fab fa-discord"></i> DISCORD</a></li>
+            <li><a onclick="location.reload()">HOME</a></li>
+            <li><a href="#videos">RANKING</a></li>
+            <li><a href="https://discord.gg/RusKaP27b8" target="_blank">DISCORD</a></li>
+            <li><a onclick="showLogin()" style="color: var(--deep-aqua); background: white; padding: 8px 15px; border-radius: 50px;">ADMIN PANEL</a></li>
         </ul>
     </nav>
 
     <div class="modal-overlay" id="loginModal">
         <div class="login-box">
-            <h2 style="color: var(--deep-aqua)">Tier Panel Access</h2>
-            <input type="password" id="passInput" placeholder="Enter Password...">
-            <button class="btn btn-discord" style="width:100%" onclick="checkPass()">Unlock</button>
-            <p id="errorMsg" style="color:red; font-size:0.8rem; margin-top:10px; display:none;">Incorrect Password</p>
+            <h2 style="color: var(--deep-aqua)">Tier Access</h2>
+            <input type="password" id="passInput" placeholder="Password">
+            <button class="btn" style="background: var(--deep-aqua); color: white; width: 100%;" onclick="checkPass()">Unlock Panel</button>
         </div>
     </div>
 
     <header id="hero">
         <h1>Master the Jungle.</h1>
-        <p>The freshest meta analysis for elite climbing.</p>
-        <div>
-            <a href="#videos" class="btn btn-white" style="margin-right:10px">View Rankings</a>
-            <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn btn-discord">Join Community</a>
-        </div>
+        <p style="color: white; opacity: 0.9;">Premium tier lists for elite climbers.</p>
     </header>
 
     <main class="main-content">
         
         <section id="tier-panel">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
-                <h2 style="color: var(--deep-aqua)">🛡️ Tier Management</h2>
-                <button class="btn btn-sm" style="background:#fee2e2; color:red;" onclick="location.reload()">Exit Panel</button>
+            <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
+                <h2 style="color: var(--deep-aqua)">🛡️ Tier Panel Console</h2>
+                <button class="btn btn-sm" onclick="location.reload()">Close</button>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 30px;">
-                <button class="btn btn-sm btn-white" style="border:1px solid #ddd" onclick="alert('Set Ranks Active')">SET RANKS</button>
-                <button class="btn btn-sm btn-white" style="border:1px solid #ddd" onclick="alert('Icon Editor Active')">SET RANK ICON</button>
-                <button class="btn btn-sm btn-white" style="border:1px solid #ddd; color:orange;" onclick="alert('Bulk Kick Mode')">KICK ALL</button>
-                <button class="btn btn-sm btn-white" style="border:1px solid #ddd; color:red;" onclick="alert('Ban List Opened')">BAN LIST</button>
+            <div style="background: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px dashed #cbd5e1; text-align: center;">
+                <p style="font-weight: 700; color: var(--text-dim); margin-bottom: 10px;">GLOBAL ASSET UPLOAD</p>
+                <input type="file" id="rankIconUpload" hidden accept="image/*">
+                <button class="btn btn-sm btn-white" onclick="document.getElementById('rankIconUpload').click()">
+                    <i class="fas fa-upload"></i> Upload New Rank Icons
+                </button>
             </div>
 
             <table class="player-table">
@@ -144,104 +135,93 @@
                     <tr>
                         <th>PLAYER</th>
                         <th>RANK</th>
-                        <th>ICON</th>
-                        <th>SETTINGS</th>
+                        <th>STATUS</th>
+                        <th>ACTIONS</th>
                     </tr>
                 </thead>
-                <tbody id="adminPlayerList">
+                <tbody id="playerRows">
                     </tbody>
             </table>
         </section>
 
-        <h2 id="videos" style="color: white; margin-bottom: 30px; text-align: center;">Latest Tier Updates</h2>
-        <section id="video-container">
-            <p style="text-align:center; color: white;">Syncing with YouTube...</p>
-        </section>
+        <h2 id="videos" style="color: white; margin-bottom: 30px; text-align: center;">Latest Rankings</h2>
+        <div id="video-container"></div>
     </main>
 
     <script>
-        // Mock Player Data
-        const players = [
-            { name: "KrushnaXD", rank: "S-TIER", icon: "💎", color: "var(--s-tier)" },
-            { name: "JungleKing", rank: "A-TIER", icon: "⚔️", color: "var(--accent-aqua)" },
-            { name: "MetaSlayer", rank: "B-TIER", icon: "🌿", color: "#84cc16" }
+        // Data State
+        let players = [
+            { id: 1, name: "KrushnaXD", rank: "S-TIER", banned: false },
+            { id: 2, name: "JungleKing", rank: "A-TIER", banned: false },
+            { id: 3, name: "MetaSlayer", rank: "B-TIER", banned: true }
         ];
 
-        // YouTube Config
-        const CHANNEL_ID = 'UC_x5XG1OV2P6uYZ5FHSx6_A'; 
-        const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-        const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
-
-        // Admin Functions
-        function showLogin() {
-            document.getElementById('loginModal').style.display = 'flex';
-        }
-
+        // Auth
+        function showLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        
         function checkPass() {
             if(document.getElementById('passInput').value === "krushnaxd123") {
                 document.getElementById('loginModal').style.display = 'none';
                 document.getElementById('tier-panel').style.display = 'block';
                 document.getElementById('hero').style.display = 'none';
-                loadAdminPlayers();
+                renderAdmin();
                 window.scrollTo(0,0);
-            } else {
-                document.getElementById('errorMsg').style.display = 'block';
-            }
+            } else { alert("Wrong Password"); }
         }
 
-        function loadAdminPlayers() {
-            const list = document.getElementById('adminPlayerList');
-            list.innerHTML = players.map(p => `
+        // Toggle Ban Logic
+        function toggleBan(id) {
+            const player = players.find(p => p.id === id);
+            player.banned = !player.banned;
+            renderAdmin();
+        }
+
+        // Render Admin Table
+        function renderAdmin() {
+            const tbody = document.getElementById('playerRows');
+            tbody.innerHTML = players.map(p => `
                 <tr>
                     <td><strong>${p.name}</strong></td>
-                    <td><span class="rank-badge" style="background:${p.color}">${p.rank}</span></td>
-                    <td><span style="font-size:1.2rem">${p.icon}</span></td>
+                    <td><span style="font-weight:700; color:var(--deep-aqua)">${p.rank}</span></td>
+                    <td>${p.banned ? '<span style="color:red">Banned</span>' : '<span style="color:green">Active</span>'}</td>
                     <td>
-                        <button class="btn btn-sm" style="background:#f1f5f9;" onclick="alert('Edit rank for ${p.name}')">Edit Rank</button>
-                        <button class="btn btn-sm" style="background:#f1f5f9;" onclick="alert('Edit icon for ${p.name}')">Edit Icon</button>
-                        <button class="btn btn-sm" style="background:#fee2e2; color:red;" onclick="alert('Banned ${p.name}')">Ban</button>
-                        <button class="btn btn-sm" style="background:#fef3c7; color:orange;" onclick="alert('Kicked ${p.name}')">Kick</button>
+                        <button class="btn btn-sm btn-white" onclick="document.getElementById('rankIconUpload').click()">Edit Icon</button>
+                        <button class="btn btn-sm btn-white">Edit Rank</button>
+                        <button class="btn btn-sm ${p.banned ? 'btn-unban' : 'btn-ban'}" onclick="toggleBan(${p.id})">
+                            ${p.banned ? 'Unban User' : 'Ban User'}
+                        </button>
+                        <button class="btn btn-sm btn-white" style="color:orange">Kick</button>
                     </td>
                 </tr>
             `).join('');
         }
 
-        // YouTube Fetching
+        // YouTube Logic
         async function fetchVideos() {
+            const CHANNEL_ID = 'UC_x5XG1OV2P6uYZ5FHSx6_A';
+            const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`)}`;
+            
             try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
+                const res = await fetch(API_URL);
+                const data = await res.json();
                 const container = document.getElementById('video-container');
-                container.innerHTML = ''; 
-
-                if (data.items) {
-                    data.items.slice(0, 5).forEach((item, index) => {
-                        const videoId = item.guid.split(':').pop();
-                        const tierColor = index === 0 ? 'var(--s-tier)' : 'var(--accent-aqua)';
-                        
-                        const card = document.createElement('div');
-                        card.className = 'video-card';
-                        card.innerHTML = `
+                
+                data.items.slice(0, 4).forEach(item => {
+                    const videoId = item.guid.split(':').pop();
+                    container.innerHTML += `
+                        <div class="video-card">
                             <div class="video-thumb"><iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>
                             <div class="video-info">
-                                <span class="tier-tag" style="background: ${tierColor}">UPDATED RANKING</span>
-                                <h3 style="margin: 10px 0;">${item.title}</h3>
-                                <p style="font-size:0.9rem; color: var(--text-dim); margin-bottom: 15px;">Elite jungle pathing and meta analysis.</p>
-                                <a href="https://discord.gg/RusKaP27b8" target="_blank" style="color: var(--deep-aqua); font-weight:700; text-decoration:none;">JOIN DISCORD →</a>
+                                <h3 style="margin-bottom:10px;">${item.title}</h3>
+                                <a href="https://discord.gg/RusKaP27b8" target="_blank" style="color: var(--deep-aqua); font-weight:700; text-decoration:none;">JOIN THE PACK →</a>
                             </div>
-                        `;
-                        container.appendChild(card);
-                    });
-                }
-            } catch (e) {
-                document.getElementById('video-container').innerHTML = '<p style="color:white; text-align:center;">Updates loading...</p>';
-            }
+                        </div>
+                    `;
+                });
+            } catch (e) { console.log("Feed Offline"); }
         }
 
         fetchVideos();
-
-        // Close modal on escape
-        window.onkeydown = (e) => { if(e.key === "Escape") document.getElementById('loginModal').style.display = 'none'; }
     </script>
 </body>
 </html>
