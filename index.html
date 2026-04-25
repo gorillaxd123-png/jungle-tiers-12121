@@ -3,165 +3,230 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zap Tiers</title>
+  <title>Jungle Tiers</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; cursor: crosshair; }
+    
+    /* Set website background color like the image */
+    body { 
+        background: linear-gradient(135deg, #c3f7df 0%, #a2ccfe 100%); /* Mint to Sky Blue gradient */
+        color: #333; /* Darker text for readability on light background */
+        font-family: 'Segoe UI', sans-serif; 
+        cursor: crosshair; 
+        min-height: 100vh;
+    }
 
-    .navbar { background: #0a0a0a; border-bottom: 1px solid #1a1a1a; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 8px; height: 64px; position: sticky; top: 0; z-index: 50; }
-    .nav-logo { margin-right: 12px; }
-    .nav-logo img { width: 52px; filter: drop-shadow(0 0 12px rgba(245,166,35,0.9)) drop-shadow(0 0 28px rgba(245,166,35,0.5)); }
+    /* Adjust navbar for light background */
+    .navbar { 
+        background: rgba(255, 255, 255, 0.8); 
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0,0,0,0.1); 
+        padding: 0 40px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        gap: 8px; 
+        height: 64px; 
+        position: sticky; 
+        top: 0; 
+        z-index: 50; 
+    }
+    
+    /* New Logo Styling for Jungle Tiers */
+    .nav-logo-text { 
+        font-size: 24px;
+        font-weight: 900;
+        color: #2e7d32; /* Jungle Green */
+        margin-right: 12px;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    }
+    
     .nav-links { display: flex; gap: 8px; align-items: center; }
-    .nav-links a { color: #aaa; text-decoration: none; font-size: 15px; font-weight: 600; padding: 7px 16px; border-radius: 10px; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .nav-links a img { width: 18px; height: 18px; object-fit: contain; }
-    .nav-links a:hover { color: #fff; background: #1a1a1a; }
-    .nav-links a.active { background: #1a1a1a; border: 1px solid #333; color: #fff; }
+    .nav-links a { color: #555; text-decoration: none; font-size: 15px; font-weight: 600; padding: 7px 16px; border-radius: 10px; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+    .nav-links a img { width: 18px; height: 18px; object-fit: contain; filter: grayscale(1) opacity(0.7); }
+    .nav-links a:hover { color: #000; background: rgba(0,0,0,0.05); }
+    .nav-links a:hover img { filter: none; opacity: 1; }
+    .nav-links a.active { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); color: #000; }
+    .nav-links a.active img { filter: none; opacity: 1; }
 
-    /* Hero */
+    /* Hero - Adjust for light background */
     .hero { text-align: center; padding: 100px 20px 70px; }
-    .hero-badge { display: inline-block; border: 1px solid #333; color: #aaa; font-size: 11px; padding: 6px 18px; border-radius: 20px; margin-bottom: 28px; letter-spacing: 3px; }
+    .hero-badge { display: inline-block; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5); color: #666; font-size: 11px; padding: 6px 18px; border-radius: 20px; margin-bottom: 28px; letter-spacing: 3px; }
     .hero h1 { font-size: 86px; font-weight: 900; line-height: 1; margin-bottom: 24px; }
-    .hero h1 .white { color: #fff; display: block; }
-    .hero h1 .glow { color: #f5a623; text-shadow: 0 0 40px rgba(245,166,35,0.6), 0 0 80px rgba(245,166,35,0.3), 0 0 120px rgba(245,166,35,0.15); display: block; }
-    .hero p { color: #666; font-size: 17px; margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+    
+    /* Changed names and colors here */
+    .hero h1 .white { color: #1b5e20; display: block; } /* Dark Jungle Green */
+    .hero h1 .glow { color: #388e3c; text-shadow: 0 0 15px rgba(56, 142, 60, 0.3); display: block; } /* Mid Green */
+    
+    .hero p { color: #444; font-size: 17px; margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.6; }
     .hero-btns { display: flex; gap: 14px; justify-content: center; }
-    .btn-primary { background: #f5a623; color: #000; padding: 14px 32px; border-radius: 12px; font-weight: 800; font-size: 15px; text-decoration: none; display: flex; align-items: center; gap: 8px; border: none; cursor: pointer; transition: all 0.2s; }
-    .btn-primary:hover { background: #e09415; transform: translateY(-1px); }
-    .btn-primary img { width: 20px; height: 20px; object-fit: contain; }
-    .btn-secondary { background: transparent; color: #fff; padding: 14px 32px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; display: flex; align-items: center; gap: 8px; border: 1px solid #333; cursor: pointer; transition: all 0.2s; }
-    .btn-secondary:hover { border-color: #555; transform: translateY(-1px); }
+    
+    /* Updated button colors */
+    .btn-primary { background: #2e7d32; color: #fff; padding: 14px 32px; border-radius: 12px; font-weight: 800; font-size: 15px; text-decoration: none; display: flex; align-items: center; gap: 8px; border: none; cursor: pointer; transition: all 0.2s; }
+    .btn-primary:hover { background: #1b5e20; transform: translateY(-1px); }
+    .btn-primary img { width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1); }
+    
+    .btn-secondary { background: rgba(255,255,255,0.5); color: #333; padding: 14px 32px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; display: flex; align-items: center; gap: 8px; border: 1px solid rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s; }
+    .btn-secondary:hover { border-color: rgba(0,0,0,0.2); background: rgba(255,255,255,0.8); transform: translateY(-1px); }
     .btn-secondary img { width: 20px; height: 20px; object-fit: contain; }
-    .hero-arrow { margin-top: 56px; color: #333; font-size: 22px; }
+    
+    .hero-arrow { margin-top: 56px; color: rgba(0,0,0,0.2); font-size: 22px; }
 
     .rankings-page { display: none; }
     .rankings-page.show { display: block; }
     .hero.hide { display: none; }
 
-    /* Tabs */
-    .tabs-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid #1a1a1a; }
+    /* Tabs - Adjusted for light background */
+    .tabs-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.6); }
     .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-    .tab { background: #111; border: 1px solid #222; color: #aaa; padding: 9px 18px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+    .tab { background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.1); color: #555; padding: 9px 18px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
     .tab img { width: 24px; height: 24px; object-fit: contain; }
-    .tab:hover { border-color: #444; color: #fff; }
-    .tab.active { background: #f5a623; border-color: #f5a623; color: #000; }
+    .tab:hover { border-color: rgba(0,0,0,0.2); color: #000; }
+    /* Updated active tab color to match Jungle theme */
+    .tab.active { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+    .tab.active img { filter: brightness(0) invert(1); }
+    
     .search-wrap { position: relative; }
-    .search-wrap input { background: #111; border: 1px solid #222; color: #fff; padding: 9px 16px 9px 38px; border-radius: 10px; font-size: 14px; outline: none; width: 240px; }
-    .search-wrap input::placeholder { color: #555; }
-    .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: #555; font-size: 14px; }
+    .search-wrap input { background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.1); color: #333; padding: 9px 16px 9px 38px; border-radius: 10px; font-size: 14px; outline: none; width: 240px; }
+    .search-wrap input::placeholder { color: #999; }
+    .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: #999; font-size: 14px; }
 
     .rankings-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px 12px; }
-    .players-count { font-size: 12px; color: #555; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
-    .players-count::before, .players-count::after { content: '—'; color: #333; }
-    .info-btn { background: transparent; border: 1px solid #333; color: #aaa; padding: 7px 16px; border-radius: 20px; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 7px; font-weight: 600; }
-    .info-btn:hover { border-color: #f5a623; color: #f5a623; }
+    .players-count { font-size: 12px; color: #777; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+    .players-count::before, .players-count::after { content: '—'; color: rgba(0,0,0,0.1); }
+    .info-btn { background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); color: #555; padding: 7px 16px; border-radius: 20px; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 7px; font-weight: 600; }
+    .info-btn:hover { border-color: #2e7d32; color: #2e7d32; background: #fff; }
     .info-btn img { width: 15px; height: 15px; object-fit: contain; }
+    
     .legend { display: flex; align-items: center; gap: 16px; padding: 0 40px 16px; }
     .legend-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #666; }
     .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .legend-dot.high { background: #e74c3c; }
-    .legend-dot.low { background: #2ecc71; }
+    /* Adjusted legend colors for better contrast */
+    .legend-dot.high { background: #c62828; } /* Darker Red */
+    .legend-dot.low { background: #1565c0; } /* Darker Blue */
 
-    /* Overall table */
+    /* Overall table - Adjusted for light background */
     .table-wrap { padding: 0 40px 60px; }
-    table { width: 100%; border-collapse: collapse; }
-    thead th { padding: 10px 16px; text-align: left; font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #1a1a1a; }
-    tbody tr { border-bottom: 1px solid #111; transition: background 0.15s; cursor: pointer; }
-    tbody tr:hover { background: #111; }
+    table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.4); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    thead th { padding: 14px 16px; text-align: left; font-size: 11px; color: #777; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(0,0,0,0.05); background: rgba(255,255,255,0.6); }
+    tbody tr { border-bottom: 1px solid rgba(0,0,0,0.03); transition: background 0.15s; cursor: pointer; }
+    tbody tr:hover { background: rgba(255,255,255,0.8); }
     td { padding: 16px 16px; font-size: 14px; vertical-align: middle; }
     .rank-cell { width: 60px; }
     .rank-badge { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-    .rank-badge.gold { background: #3d2a00; } .rank-badge.gold img { width: 30px; }
-    .rank-badge.silver { background: #1a1a2d; } .rank-badge.silver img { width: 30px; }
-    .rank-badge.bronze { background: #2d1a0a; } .rank-badge.bronze img { width: 30px; }
-    .rank-badge.normal { background: #1a1a1a; color: #aaa; font-size: 14px; font-weight: 700; }
+    
+    /* Adjusted rank badge colors for light background */
+    .rank-badge.gold { background: #fffde7; border: 1px solid #fff59d; } .rank-badge.gold img { width: 30px; }
+    .rank-badge.silver { background: #f5f5f5; border: 1px solid #e0e0e0; } .rank-badge.silver img { width: 30px; }
+    .rank-badge.bronze { background: #efebe9; border: 1px solid #d7ccc8; } .rank-badge.bronze img { width: 30px; }
+    .rank-badge.normal { background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.05); color: #777; font-size: 14px; font-weight: 700; }
+    
     .player-cell { display: flex; align-items: center; gap: 14px; }
-    .player-cell img.avatar { width: 40px; height: 40px; border-radius: 8px; }
-    .player-name { font-weight: 800; font-size: 16px; }
+    .player-cell img.avatar { width: 40px; height: 40px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); }
+    .player-name { font-weight: 800; font-size: 16px; color: #000; }
     .player-title { font-size: 12px; color: #666; margin-top: 2px; }
-    .player-title span { color: #f5a623; }
-    .points-cell { color: #f5a623; font-weight: 800; font-size: 17px; }
-    .points-label { font-size: 11px; color: #444; margin-top: 2px; }
-    .region-badge { background: #1a2030; color: #3498db; padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+    
+    /* Updated point cell color to match Jungle theme */
+    .player-title span { color: #2e7d32; font-weight: 700; }
+    .points-cell { color: #2e7d32; font-weight: 800; font-size: 17px; }
+    .points-label { font-size: 11px; color: #777; margin-top: 2px; }
+    
+    .region-badge { background: rgba(0,0,0,0.05); color: #555; padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; border: 1px solid rgba(0,0,0,0.03); }
     .tiers-cell { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-    .tier-circle { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+    .tier-circle { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; border: 1px solid rgba(0,0,0,0.05); }
     .tier-circle img { width: 22px; height: 22px; object-fit: contain; }
     .tier-circle .tier-label { font-size: 9px; font-weight: 800; margin-top: 1px; }
-    .tier-circle.ht { background: #2d1515; } .tier-circle.ht .tier-label { color: #e74c3c; }
-    .tier-circle.lt { background: #0d2b1a; } .tier-circle.lt .tier-label { color: #2ecc71; }
+    
+    /* Adjusted Tier colors for light background */
+    .tier-circle.ht { background: #ffebee; border-color: #ffcdd2; } .tier-circle.ht .tier-label { color: #c62828; }
+    .tier-circle.lt { background: #e3f2fd; border-color: #bbdefb; } .tier-circle.lt .tier-label { color: #1565c0; }
 
-    /* Gamemode divisions */
+    /* Gamemode divisions - Adjusted for light background */
     .gm-header { display: flex; align-items: center; gap: 16px; padding: 24px 40px 8px; }
-    .gm-icon-big { width: 52px; height: 52px; background: #1a1a2d; border-radius: 14px; padding: 8px; display: flex; align-items: center; justify-content: center; }
+    .gm-icon-big { width: 52px; height: 52px; background: rgba(255,255,255,0.7); border-radius: 14px; padding: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.05); }
     .gm-icon-big img { width: 36px; height: 36px; object-fit: contain; }
-    .gm-header h2 { font-size: 24px; font-weight: 900; }
-    .gm-header p { font-size: 13px; color: #555; margin-top: 3px; }
+    .gm-header h2 { font-size: 24px; font-weight: 900; color: #000; }
+    .gm-header p { font-size: 13px; color: #666; margin-top: 3px; }
     .divisions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; padding: 16px 40px 60px; }
-    .division-card { background: #111; border-radius: 14px; overflow: hidden; }
+    
+    .division-card { background: rgba(255,255,255,0.5); border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
     .division-header { padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
-    .division-header.ht { background: linear-gradient(90deg, #3d1515, #2d1010); border-bottom: 1px solid #3d1515; }
-    .division-header.lt { background: linear-gradient(90deg, #0d2b1a, #0a1f12); border-bottom: 1px solid #0d2b1a; }
+    
+    /* Adjusted Division headers for light background */
+    .division-header.ht { background: linear-gradient(90deg, #ffebee, #fff5f5); border-bottom: 1px solid #ffcdd2; }
+    .division-header.lt { background: linear-gradient(90deg, #e3f2fd, #f5faff); border-bottom: 1px solid #bbdefb; }
     .division-title { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; }
-    .tier-name.ht { color: #e74c3c; }
-    .tier-name.lt { color: #2ecc71; }
-    .division-count { font-size: 12px; color: #555; }
+    .division-title span.icon { font-size: 18px; }
+    .tier-name.ht { color: #c62828; }
+    .tier-name.lt { color: #1565c0; }
+    .division-count { font-size: 12px; color: #777; }
     .division-players { padding: 8px 0; }
     .division-player { display: flex; align-items: center; gap: 12px; padding: 10px 18px; border-left: 3px solid transparent; transition: background 0.15s; cursor: pointer; }
-    .division-player:hover { background: #1a1a1a; }
-    .division-player.ht-border { border-left-color: #e74c3c; }
-    .division-player.lt-border { border-left-color: #2ecc71; }
-    .division-player img.avatar { width: 34px; height: 34px; border-radius: 6px; }
-    .division-player .pname { font-weight: 700; font-size: 14px; }
-    .division-player .pregion { margin-left: auto; background: #1a2030; color: #3498db; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .division-player:hover { background: rgba(255,255,255,0.8); }
+    .division-player.ht-border { border-left-color: #ef9a9a; }
+    .division-player.lt-border { border-left-color: #90caf9; }
+    .division-player img.avatar { width: 34px; height: 34px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.05); }
+    .division-player .pname { font-weight: 700; font-size: 14px; color: #333; }
+    .division-player .pregion { margin-left: auto; background: rgba(0,0,0,0.05); color: #555; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; border: 1px solid rgba(0,0,0,0.03); }
 
-    /* Modals */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; justify-content: center; align-items: center; }
+    /* Modals - Adjusted for light background */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 100; justify-content: center; align-items: center; }
     .modal-overlay.show { display: flex; }
-    .modal { background: #111; border: 1px solid #222; border-radius: 16px; padding: 30px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; }
-    .modal-close { float: right; background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer; }
-    .modal h2 { font-size: 20px; margin-bottom: 8px; font-weight: 800; }
-    .modal p { color: #aaa; font-size: 13px; margin-bottom: 20px; line-height: 1.6; }
-    .ranking-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #1a1a1a; border-radius: 10px; margin-bottom: 8px; }
+    .modal { background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 16px; padding: 30px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .modal-close { float: right; background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer; margin-top: -10px; margin-right: -10px;}
+    .modal-close:hover { color: #333; }
+    .modal h2 { font-size: 22px; margin-bottom: 12px; font-weight: 800; color: #000; display: flex; align-items: center; gap: 10px; }
+    .modal p { color: #666; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+    .ranking-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #f9f9f9; border-radius: 10px; margin-bottom: 8px; border: 1px solid rgba(0,0,0,0.03); }
     .ranking-item .tier-info { display: flex; align-items: center; gap: 12px; }
-    .tier-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
-    .ranking-item .pts { color: #f5a623; font-weight: 700; }
-    .titles-section { margin-top: 20px; }
-    .titles-section h3 { font-size: 12px; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
-    .title-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #1a1a1a; border-radius: 10px; margin-bottom: 8px; }
-    .title-pts { color: #555; font-size: 13px; }
-    .abbrev-section { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
-    .abbrev-badge { background: #1a1a1a; padding: 6px 14px; border-radius: 8px; font-size: 12px; color: #666; }
-    .profile-modal { background: #111; border: 1px solid #222; border-radius: 16px; padding: 30px; max-width: 580px; width: 90%; max-height: 85vh; overflow-y: auto; }
-    .profile-header { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
-    .profile-header img.skin { width: 70px; border-radius: 8px; }
-    .profile-info h2 { font-size: 22px; font-weight: 800; }
-    .profile-info .ptitle { color: #f5a623; font-size: 13px; margin-top: 4px; }
+    .tier-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; border: 1px solid rgba(0,0,0,0.05); }
+    .ranking-item .pts { color: #2e7d32; font-weight: 800; }
+    
+    .titles-section { margin-top: 28px; }
+    .titles-section h3 { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+    .title-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #f9f9f9; border-radius: 10px; margin-bottom: 8px; border: 1px solid rgba(0,0,0,0.03); }
+    .title-item .title-name { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px;}
+    .title-pts { color: #777; font-size: 13px; font-weight: 600; }
+    
+    .abbrev-section { margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .abbrev-badge { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); padding: 6px 14px; border-radius: 8px; font-size: 12px; color: #666; font-weight: 600; }
+    
+    .profile-modal { background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 16px; padding: 30px; max-width: 580px; width: 90%; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .profile-header { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .profile-header img.skin { width: 70px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); background: #f9f9f9;}
+    .profile-info h2 { font-size: 24px; font-weight: 900; color: #000; }
+    .profile-info .ptitle { color: #2e7d32; font-size: 14px; margin-top: 4px; font-weight: 700; }
     .profile-info .ppts { color: #666; font-size: 13px; margin-top: 4px; }
-    .profile-tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .profile-tier-card { background: #1a1a1a; border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
-    .profile-tier-card .gm { font-size: 13px; color: #666; }
-    .tier-badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
-    .tier-badge.ht { background: #2d1515; color: #e74c3c; }
-    .tier-badge.lt { background: #0d2b1a; color: #2ecc71; }
-    .tier-badge.unranked { background: #1a1a1a; color: #444; }
-    .no-results { text-align: center; color: #444; padding: 60px; font-size: 14px; }
+    .profile-info .pregion { color: #666; font-size: 13px; margin-top: 4px; font-weight: 600;}
+    
+    .profile-tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .profile-tier-card { background: #f9f9f9; border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(0,0,0,0.03); }
+    .profile-tier-card .gm-info { display: flex; align-items: center; gap: 10px; }
+    .profile-tier-card img.gm-icon { width: 20px; height: 20px; object-fit: contain; }
+    .profile-tier-card .gm-name { font-size: 13px; color: #555; font-weight: 600; }
+    .tier-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; border: 1px solid rgba(0,0,0,0.05); }
+    .tier-badge.ht { background: #ffebee; color: #c62828; border-color: #ffcdd2; }
+    .tier-badge.lt { background: #e3f2fd; color: #1565c0; border-color: #bbdefb; }
+    .tier-badge.unranked { background: rgba(0,0,0,0.03); color: #888; border-color: rgba(0,0,0,0.03); }
+    
+    .no-results { text-align: center; color: #888; padding: 60px; font-size: 14px; background: rgba(255,255,255,0.4); border-radius: 12px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
 <nav class="navbar">
-  <div class="nav-logo"><img src="/images/trophyztl.png" alt="logo"></div>
+  <div class="nav-logo-text">Jungle Tiers</div>
   <div class="nav-links">
-    <a href="https://discord.gg/XUQzX43VmE" target="_blank"><img src="/images/discordztl.png" alt="discord"> Discord</a>
+    <a href="https://discord.gg/RusKaP27b8" target="_blank"><img src="/images/discordztl.png" alt="discord"> Discord</a>
     <a href="#" onclick="showPage('home')"><img src="/images/homeztl.png" alt="home"> Home</a>
     <a href="#" onclick="showPage('rankings')" class="active"><img src="/images/trophyztl.png" alt="rankings"> Rankings</a>
   </div>
 </nav>
 
-<!-- Hero -->
 <div class="hero" id="heroPage">
   <div class="hero-badge">● MINECRAFT PVP RANKINGS</div>
   <h1>
-    <span class="white">Zap</span>
+    <span class="white">Jungle</span>
     <span class="glow">Tiers</span>
   </h1>
   <p>The definitive ranking platform for Minecraft PvP. Prove your skill. Claim your tier.</p>
@@ -169,14 +234,13 @@
     <button class="btn-primary" onclick="showPage('rankings')">
       <img src="/images/starztl.png"> View Rankings
     </button>
-    <a href="https://discord.gg/XUQzX43VmE" target="_blank" class="btn-secondary">
+    <a href="https://discord.gg/RusKaP27b8" target="_blank" class="btn-secondary">
       <img src="/images/discztl.png"> Join Community
     </a>
   </div>
   <div class="hero-arrow">∨</div>
 </div>
 
-<!-- Rankings -->
 <div class="rankings-page" id="rankingsPage">
   <div class="tabs-bar">
     <div class="tabs">
@@ -214,31 +278,31 @@
   <div id="mainContent"></div>
 </div>
 
-<!-- Info Modal -->
 <div class="modal-overlay" id="infoModal">
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('infoModal').classList.remove('show')">✕</button>
-    <h2>ℹ️ Ranking System</h2>
+    <h2>🌿 Ranking System</h2>
     <p>Each rank you earn in any game mode gives you points. Your total points across all game modes determine your overall ranking position and title.</p>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#3d2a00;color:#f5a623">HT1</div><span>High Tier 1</span></div><span class="pts">60 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#3d2a00;color:#f5a623">LT1</div><span>Low Tier 1</span></div><span class="pts">45 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#3d2a00;color:#f5a623">HT2</div><span>High Tier 2</span></div><span class="pts">30 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#3d1f00;color:#e67e22">LT2</div><span>Low Tier 2</span></div><span class="pts">20 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#2d1a1a;color:#e74c3c">HT3</div><span>High Tier 3</span></div><span class="pts">10 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#1a1a2d;color:#9b59b6">LT3</div><span>Low Tier 3</span></div><span class="pts">6 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#1a1a2d;color:#8e44ad">HT4</div><span>High Tier 4</span></div><span class="pts">4 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#1a2030;color:#3498db">LT4</div><span>Low Tier 4</span></div><span class="pts">3 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#1a2030;color:#2980b9">HT5</div><span>High Tier 5</span></div><span class="pts">2 pts</span></div>
-    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#1a1a1a;color:#7f8c8d">LT5</div><span>Low Tier 5</span></div><span class="pts">1 pt</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#ffebee;color:#c62828;border-color:#ffcdd2">HT1</div><span>High Tier 1</span></div><span class="pts">60 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#e3f2fd;color:#1565c0;border-color:#bbdefb">LT1</div><span>Low Tier 1</span></div><span class="pts">45 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#ffebee;color:#c62828;border-color:#ffcdd2">HT2</div><span>High Tier 2</span></div><span class="pts">30 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#e3f2fd;color:#1565c0;border-color:#bbdefb">LT2</div><span>Low Tier 2</span></div><span class="pts">20 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#ffebee;color:#c62828;border-color:#ffcdd2">HT3</div><span>High Tier 3</span></div><span class="pts">10 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#e3f2fd;color:#1565c0;border-color:#bbdefb">LT3</div><span>Low Tier 3</span></div><span class="pts">6 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#ffebee;color:#c62828;border-color:#ffcdd2">HT4</div><span>High Tier 4</span></div><span class="pts">4 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#e3f2fd;color:#1565c0;border-color:#bbdefb">LT4</div><span>Low Tier 4</span></div><span class="pts">3 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#ffebee;color:#c62828;border-color:#ffcdd2">HT5</div><span>High Tier 5</span></div><span class="pts">2 pts</span></div>
+    <div class="ranking-item"><div class="tier-info"><div class="tier-icon" style="background:#e3f2fd;color:#1565c0;border-color:#bbdefb">LT5</div><span>Low Tier 5</span></div><span class="pts">1 pt</span></div>
+    
     <div class="titles-section">
       <h3>Titles</h3>
-      <div class="title-item"><span style="color:#f39c12">👑 Combat Grandmaster</span><span class="title-pts">400+ pts</span></div>
-      <div class="title-item"><span style="color:#f1c40f">⭐ Combat Master</span><span class="title-pts">250+ pts</span></div>
-      <div class="title-item"><span style="color:#e67e22">✦ Combat Ace</span><span class="title-pts">100+ pts</span></div>
-      <div class="title-item"><span style="color:#9b59b6">◆ Combat Specialist</span><span class="title-pts">50+ pts</span></div>
-      <div class="title-item"><span style="color:#3498db">◈ Combat Cadet</span><span class="title-pts">20+ pts</span></div>
-      <div class="title-item"><span style="color:#2ecc71">• Combat Novice</span><span class="title-pts">10+ pts</span></div>
-      <div class="title-item"><span style="color:#aaa">○ Rookie</span><span class="title-pts">0 - 9 pts</span></div>
+      <div class="title-item"><div class="title-name"><span>👑</span> <span style="color:#b71c1c">Jungle Master</span></div><span class="title-pts">400+ pts</span></div>
+      <div class="title-item"><div class="title-name"><span>💎</span> <span style="color:#006064">Crystal Baron</span></div><span class="title-pts">250+ pts</span></div>
+      <div class="title-item"><div class="title-name"><span>⚔️</span> <span style="color:#1b5e20">Warlord</span></div><span class="title-pts">100+ pts</span></div>
+      <div class="title-item"><div class="title-name"><span>🏹</span> <span style="color:#e65100">Hunter</span></div><span class="title-pts">50+ pts</span></div>
+      <div class="title-item"><div class="title-name"><span>🛡️</span> <span style="color:#0d47a1">Guardian</span></div><span class="title-pts">20+ pts</span></div>
+      <div class="title-item"><div class="title-name"><span>🗿</span> <span style="color:#424242">Stone Lord</span></div><span class="title-pts">10+ pts</span></div>
+      <div class="title-item"><div class="title-name"><span>🌱</span> <span style="color:#777">Scout</span></div><span class="title-pts">0 - 9 pts</span></div>
     </div>
     <div class="abbrev-section">
       <div class="abbrev-badge">HT = High Tier</div>
@@ -248,7 +312,6 @@
   </div>
 </div>
 
-<!-- Profile Modal -->
 <div class="modal-overlay" id="profileModal">
   <div class="profile-modal">
     <button class="modal-close" onclick="document.getElementById('profileModal').classList.remove('show')">✕</button>
@@ -257,7 +320,17 @@
 </div>
 
 <script>
-  let allPlayers = [];
+  // Simplified mock data for demonstration
+  let allPlayers = [
+    { username: 'LanaRain', totalPoints: 450, region: 'EU', tiers: { Sword: 'HT1', Crystal: 'LT2', 'Dia Pot': 'HT3' } },
+    { username: 'HypixelSteve', totalPoints: 280, region: 'NA', tiers: { Sword: 'LT1', Axe: 'HT2', SMP: 'HT4' } },
+    { username: 'PvPGod', totalPoints: 110, region: 'AS', tiers: { Crystal: 'HT2', Mace: 'LT3' } },
+    { username: 'RookieRick', totalPoints: 5, region: 'AU', tiers: { Sword: 'LT5' } },
+    { username: 'NoobMaster', totalPoints: 0, region: 'NA', tiers: {} },
+    { username: 'HunterHan', totalPoints: 65, region: 'EU', tiers: { Axe: 'LT1', UHC: 'HT4' } },
+    { username: 'StoneLordSam', totalPoints: 15, region: 'AS', tiers: { 'Dia SMP': 'LT3' } }
+  ];
+  
   let currentTab = 'overall';
   const GAMEMODES = ['Crystal', 'Sword', 'Mace', 'Dia Pot', 'SMP', 'Dia SMP', 'Neth Pot', 'Axe', 'UHC'];
   const GM_NAMES = {
@@ -273,27 +346,36 @@
     'UHC': '/images/uhcztl.svg'
   };
   const TIER_ORDER = ['HT1','LT1','HT2','LT2','HT3','LT3','HT4','LT4','HT5','LT5'];
+  
+  // Icon and name mappings for divisions
+  const DIVISION_ICONS = {
+      '1': '🥇', '2': '🥈', '3': '🥉', '4': '🎗️', '5': '🏅'
+  };
+
+  // Improved title function to use point thresholds and icons
+  function getPlayerTitle(pts) {
+      if (pts >= 400) return '👑 Jungle Master';
+      if (pts >= 250) return '💎 Crystal Baron';
+      if (pts >= 100) return '⚔️ Warlord';
+      if (pts >= 50) return '🏹 Hunter';
+      if (pts >= 20) return '🛡️ Guardian';
+      if (pts >= 10) return '🗿 Stone Lord';
+      return '🌱 Scout';
+  }
 
   function showPage(page) {
     if (page === 'rankings') {
       document.getElementById('heroPage').classList.add('hide');
       document.getElementById('rankingsPage').classList.add('show');
-      fetchPlayers();
+      // Using mock data, no fetch needed for demo. In real app, fetchPlayers() here.
+      renderContent(allPlayers, currentTab);
     } else {
       document.getElementById('heroPage').classList.remove('hide');
       document.getElementById('rankingsPage').classList.remove('show');
     }
   }
 
-  async function fetchPlayers() {
-    try {
-      const res = await fetch('/api/players');
-      allPlayers = await res.json();
-      renderContent(allPlayers, currentTab);
-    } catch {
-      document.getElementById('mainContent').innerHTML = '<div class="no-results">Could not load players.</div>';
-    }
-  }
+  // function fetchPlayers() { ... fetch logic ... }
 
   function getTierClass(tier) {
     if (!tier) return 'unranked';
@@ -339,7 +421,7 @@
                       <img class="avatar" src="https://mc-heads.net/avatar/${p.username}/40" onerror="this.src='https://mc-heads.net/avatar/Steve/40'">
                       <div>
                         <div class="player-name">${p.username}</div>
-                        <div class="player-title">⭐ <span>${p.title || 'Rookie'}</span></div>
+                        <div class="player-title"><span>${getPlayerTitle(p.totalPoints)}</span></div>
                       </div>
                     </div>
                   </td>
@@ -365,12 +447,14 @@
         const cls = isHT ? 'ht' : 'lt';
         const num = tier.replace('HT','').replace('LT','');
         const label = isHT ? `High Tier ${num}` : `Low Tier ${num}`;
+        // Add specific icon for each tier number
+        const icon = DIVISION_ICONS[num] || '🏆';
 
         return `
           <div class="division-card">
             <div class="division-header ${cls}">
               <div class="division-title">
-                <span>🏆</span>
+                <span class="icon">${icon}</span>
                 <span class="tier-name ${cls}">${label}</span>
               </div>
               <span class="division-count">${list.length} players</span>
@@ -417,7 +501,8 @@
     const tiersHtml = GAMEMODES.map(gm => {
       const tier = p.tiers && p.tiers[gm] ? p.tiers[gm] : null;
       const cls = getTierClass(tier);
-      return `<div class="profile-tier-card"><span class="gm">${gm}</span><span class="tier-badge ${cls}">${tier || 'Unranked'}</span></div>`;
+      // Added gm icon in profile tiers
+      return `<div class="profile-tier-card"><div class="gm-info"><img class="gm-icon" src="${GM_ICONS[gm]}"><span class="gm-name">${gm}</span></div><span class="tier-badge ${cls}">${tier || 'Unranked'}</span></div>`;
     }).join('');
 
     document.getElementById('profileContent').innerHTML = `
@@ -425,9 +510,9 @@
         <img class="skin" src="https://mc-heads.net/body/${p.username}" onerror="this.src='https://mc-heads.net/body/Steve'">
         <div class="profile-info">
           <h2>${p.username}</h2>
-          <div class="ptitle">${p.title || 'Rookie'}</div>
-          <div class="ppts">${p.totalPoints || 0} total points</div>
-          <div class="ppts">Region: ${p.region || 'AS/AU'}</div>
+          <div class="ptitle">${getPlayerTitle(p.totalPoints)}</div>
+          <div class="ppts">Total points: <strong>${p.totalPoints || 0}</strong></div>
+          <div class="ppts pregion">Region: ${p.region || 'AS/AU'}</div>
         </div>
       </div>
       <div class="profile-tiers">${tiersHtml}</div>`;
