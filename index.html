@@ -3,92 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jungle Tiers | MCTiers Style</title>
+    <title>Jungle Tiers | Aqua Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
+            /* Your Signature Aqua Theme */
+            --bg-gradient: linear-gradient(135deg, #a7f3d0 0%, #7dd3fc 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
             --accent-aqua: #2dd4bf;
             --deep-aqua: #0891b2;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-            /* MCTiers Inspired Colors */
-            --tier-ht1: #ff4757;
-            --tier-lt1: #ffa502;
-            --tier-ht2: #eccc68;
-            --tier-lt2: #7bed9f;
-            --tier-ht3: #70a1ff;
+            --text-main: #1e293b;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            
+            /* Tier Colors (Professional MCTiers Style) */
+            --ht1: #ef4444; /* Red */
+            --lt1: #f97316; /* Orange */
+            --ht2: #eab308; /* Yellow */
+            --lt2: #22c55e; /* Green */
+            --ht3: #3b82f6; /* Blue */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; line-height: 1.6; }
-        h1, h2, h3, .logo, .tier-label { font-family: 'Fredoka', sans-serif; }
+        body { 
+            background: var(--bg-gradient); 
+            background-attachment: fixed; 
+            color: var(--text-main); 
+            min-height: 100vh; 
+        }
+        h1, h2, h3, .logo, .tier-tag { font-family: 'Fredoka', sans-serif; }
 
         /* Navigation */
         nav {
-            position: sticky; top: 0; width: 100%; height: 70px;
-            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px);
+            position: sticky; top: 0; width: 100%; height: 80px;
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 8%; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 0 8%; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.4);
         }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent-aqua); letter-spacing: 1px; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--white); text-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .logo span { color: var(--deep-aqua); }
         .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links a { text-decoration: none; color: var(--text-dim); font-weight: 500; transition: 0.3s; font-size: 0.9rem; cursor: pointer; }
-        .nav-links a:hover { color: var(--accent-aqua); }
+        .nav-links a { text-decoration: none; color: var(--white); font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover { color: var(--deep-aqua); }
 
         /* Main Container */
-        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 900px; margin: 50px auto; padding: 0 20px; }
 
-        /* MCTiers Public Leaderboard */
-        .leaderboard-header { text-align: center; margin-bottom: 40px; }
-        .leaderboard-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header-box { text-align: center; margin-bottom: 40px; color: var(--white); }
+        .header-box h1 { font-size: 3rem; margin-bottom: 10px; }
 
+        /* MCTiers Public List */
         .player-card {
-            background: var(--card-bg); margin-bottom: 8px; border-radius: 12px;
-            display: flex; align-items: center; padding: 12px 20px;
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.2s;
+            background: var(--card-bg); margin-bottom: 10px; border-radius: 16px;
+            display: flex; align-items: center; padding: 15px 25px;
+            border: 1px solid var(--white); transition: 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        .player-card:hover { transform: translateX(5px); border-color: var(--accent-aqua); }
+        .player-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
 
         .tier-tag {
-            width: 70px; text-align: center; padding: 4px 0; border-radius: 6px;
-            font-weight: 700; font-size: 0.85rem; margin-right: 20px; color: #000;
+            width: 80px; text-align: center; padding: 6px 0; border-radius: 10px;
+            font-weight: 700; font-size: 0.9rem; margin-right: 25px; color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
-        .player-name { flex: 1; font-weight: 600; font-size: 1.1rem; }
-        .gamemode-icon { color: var(--text-dim); font-size: 1.1rem; }
+        .player-name { flex: 1; font-weight: 700; font-size: 1.2rem; color: var(--text-main); }
+        .gm-icon { color: var(--deep-aqua); font-size: 1.3rem; opacity: 0.8; }
 
         /* Admin Panel */
         #admin-panel {
-            display: none; background: #161e2e; padding: 30px; border-radius: 20px;
-            border: 1px solid var(--accent-aqua); margin-bottom: 40px;
-            animation: fadeIn 0.3s ease;
+            display: none; background: var(--card-bg); padding: 35px; border-radius: 24px;
+            border: 2px solid var(--white); margin-bottom: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .admin-title { color: var(--deep-aqua); margin-bottom: 20px; border-left: 5px solid var(--accent-aqua); padding-left: 15px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
         input, select { 
-            background: #1f2937; border: 1px solid #374151; color: white; 
-            padding: 10px; border-radius: 8px; outline: none; 
+            background: var(--white); border: 1px solid #e2e8f0; color: var(--text-main); 
+            padding: 12px; border-radius: 12px; outline: none; font-weight: 500;
         }
-        .btn-add { background: var(--accent-aqua); color: var(--bg-dark); border: none; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .btn-add { 
+            background: var(--deep-aqua); color: white; border: none; padding: 14px; 
+            border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s;
+            margin-top: 15px; width: 100%;
+        }
+        .btn-add:hover { background: var(--accent-aqua); transform: translateY(-2px); }
 
-        /* Modal */
+        /* Modals */
         #loginModal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            z-index: 2000; align-items: center; justify-content: center;
+            display: none; position: fixed; inset: 0; background: rgba(8, 145, 178, 0.4);
+            backdrop-filter: blur(10px); z-index: 2000; align-items: center; justify-content: center;
         }
-        .login-box { background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: center; width: 320px; border: 1px solid #334155; }
+        .login-box { background: var(--white); padding: 40px; border-radius: 24px; text-align: center; width: 350px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Dynamic Tier Colors */
-        .ht1 { background-color: var(--tier-ht1); }
-        .lt1 { background-color: var(--tier-lt1); }
-        .ht2 { background-color: var(--tier-ht2); }
-        .lt2 { background-color: var(--tier-lt2); }
-        .ht3 { background-color: var(--tier-ht3); }
+        /* Tier Colors */
+        .ht1 { background-color: var(--ht1); }
+        .lt1 { background-color: var(--lt1); }
+        .ht2 { background-color: var(--ht2); }
+        .lt2 { background-color: var(--lt2); }
+        .ht3 { background-color: var(--ht3); }
     </style>
 </head>
 <body>
@@ -96,49 +112,49 @@
     <nav>
         <div class="logo">JUNGLE<span>TIERS</span></div>
         <ul class="nav-links">
-            <li><a onclick="location.reload()">TIER LIST</a></li>
+            <li><a onclick="location.reload()">HOME</a></li>
             <li><a href="https://discord.gg/RusKaP27b8" target="_blank">DISCORD</a></li>
-            <li><a onclick="showLogin()" style="color: var(--accent-aqua)">ADMIN LOGIN</a></li>
+            <li><a onclick="showLogin()" style="background: var(--white); color: var(--deep-aqua); padding: 8px 20px; border-radius: 50px;">STAFF LOGIN</a></li>
         </ul>
     </nav>
 
     <div id="loginModal">
         <div class="login-box">
-            <h2 style="margin-bottom: 20px;">Staff Access</h2>
-            <input type="password" id="passInput" placeholder="Password" style="width: 100%; margin-bottom: 20px;">
-            <button class="btn-add" style="width: 100%;" onclick="checkPass()">Unlock Panel</button>
+            <h2 style="color: var(--deep-aqua); margin-bottom: 20px;">Staff Portal</h2>
+            <input type="password" id="passInput" placeholder="Enter Access Key" style="width: 100%; margin-bottom: 20px; text-align: center;">
+            <button class="btn-add" onclick="checkPass()">Unlock Console</button>
         </div>
     </div>
 
     <div class="container">
         
         <section id="admin-panel">
-            <h2 style="color: var(--accent-aqua)">Player Management</h2>
+            <h2 class="admin-title">Tier Management</h2>
             <div class="form-grid">
-                <input type="text" id="pName" placeholder="Minecraft Username">
+                <input type="text" id="pName" placeholder="Username">
                 <select id="pTier">
-                    <option value="ht1">HT1 (High Tier 1)</option>
-                    <option value="lt1">LT1 (Low Tier 1)</option>
-                    <option value="ht2">HT2 (High Tier 2)</option>
-                    <option value="lt2">LT2 (Low Tier 2)</option>
-                    <option value="ht3">HT3 (High Tier 3)</option>
+                    <option value="ht1">HT1 (God Tier)</option>
+                    <option value="lt1">LT1 (High Tier)</option>
+                    <option value="ht2">HT2 (Mid Tier)</option>
+                    <option value="lt2">LT2 (Low Tier)</option>
+                    <option value="ht3">HT3 (Newbie)</option>
                 </select>
                 <select id="pGM">
-                    <option value="fa-fist-raised">Fist 👊</option>
                     <option value="fa-sword">Sword ⚔️</option>
                     <option value="fa-axe">Axe 🪓</option>
-                    <option value="fa-bullseye">Crystal 💎</option>
+                    <option value="fa-gem">Crystal 💎</option>
+                    <option value="fa-fist-raised">Fist 👊</option>
                 </select>
             </div>
-            <button class="btn-add" style="width: 100%; margin-top: 15px;" onclick="addPlayer()">ADD PLAYER TO RANKINGS</button>
+            <button class="btn-add" onclick="addPlayer()">Update Official Ranking</button>
             
-            <div id="admin-list" style="margin-top: 20px;">
+            <div id="admin-list" style="margin-top: 25px; border-top: 1px solid #f1f5f9; padding-top: 20px;">
                 </div>
         </section>
 
-        <div class="leaderboard-header">
-            <h1>Official Ranking List</h1>
-            <p style="color: var(--text-dim)">The most accurate jungle meta tier list.</p>
+        <div class="header-box">
+            <h1>Official Rankings</h1>
+            <p>The premium jungle meta list updated in real-time.</p>
         </div>
 
         <div id="leaderboard-container">
@@ -147,7 +163,7 @@
     </div>
 
     <script>
-        let players = JSON.parse(localStorage.getItem('mctiers_players')) || [
+        let players = JSON.parse(localStorage.getItem('mctiers_aqua')) || [
             { name: "KrushnaXD", tier: "ht1", gm: "fa-sword" },
             { name: "JungleKing", tier: "lt1", gm: "fa-axe" }
         ];
@@ -159,37 +175,30 @@
                 document.getElementById('loginModal').style.display = 'none';
                 document.getElementById('admin-panel').style.display = 'block';
                 renderAdminList();
-            } else { alert("Incorrect Password"); }
+            } else { alert("Access Denied"); }
         }
 
         function addPlayer() {
             const name = document.getElementById('pName').value;
             const tier = document.getElementById('pTier').value;
             const gm = document.getElementById('pGM').value;
-
-            if(!name) return alert("Enter a name");
-
+            if(!name) return;
             players.push({ name, tier, gm });
-            saveData();
-            renderPublic();
-            renderAdminList();
+            save();
+            render();
             document.getElementById('pName').value = '';
         }
 
-        function removePlayer(index) {
-            players.splice(index, 1);
-            saveData();
-            renderPublic();
-            renderAdminList();
+        function removePlayer(i) {
+            players.splice(i, 1);
+            save();
+            render();
         }
 
-        function saveData() {
-            localStorage.setItem('mctiers_players', JSON.stringify(players));
-        }
+        function save() { localStorage.setItem('mctiers_aqua', JSON.stringify(players)); }
 
-        function renderPublic() {
+        function render() {
             const container = document.getElementById('leaderboard-container');
-            // Sort by tier priority
             const order = { ht1: 1, lt1: 2, ht2: 3, lt2: 4, ht3: 5 };
             const sorted = [...players].sort((a, b) => order[a.tier] - order[b.tier]);
 
@@ -197,23 +206,23 @@
                 <div class="player-card">
                     <div class="tier-tag ${p.tier}">${p.tier.toUpperCase()}</div>
                     <div class="player-name">${p.name}</div>
-                    <div class="gamemode-icon"><i class="fas ${p.gm}"></i></div>
+                    <div class="gm-icon"><i class="fas ${p.gm}"></i></div>
                 </div>
             `).join('');
+            renderAdminList();
         }
 
         function renderAdminList() {
             const list = document.getElementById('admin-list');
             list.innerHTML = players.map((p, i) => `
-                <div style="display:flex; justify-content:space-between; background:#1f2937; padding:8px 15px; border-radius:5px; margin-bottom:5px; font-size:0.8rem;">
-                    <span>${p.name} (${p.tier})</span>
-                    <span onclick="removePlayer(${i})" style="color:#ff4757; cursor:pointer;">Delete</span>
+                <div style="display:flex; justify-content:space-between; align-items:center; background:white; padding:10px 20px; border-radius:12px; margin-bottom:8px; border:1px solid #eef2f6;">
+                    <span style="font-weight:600;">${p.name} <small style="color:var(--text-dim)">(${p.tier})</small></span>
+                    <button onclick="removePlayer(${i})" style="background:#fee2e2; color:#ef4444; border:none; padding:5px 12px; border-radius:8px; cursor:pointer; font-weight:700;">Delete</button>
                 </div>
             `).join('');
         }
 
-        // Initialize
-        renderPublic();
+        render();
     </script>
 </body>
 </html>
